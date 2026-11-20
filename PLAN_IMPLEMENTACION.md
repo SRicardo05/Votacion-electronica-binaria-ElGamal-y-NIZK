@@ -113,6 +113,7 @@ G, H, α, β, A_i, B_i = codificación Ristretto canónica de 32 bytes, en ese o
 - La urna recalcula el MAC (comparación en tiempo constante) y consulta la tabla `tokens`.
 - El expediente publica **solo `token_id`**, sin MAC, en dos listas: emitidos y consumidos.
 - **Limitación declarada:** el verificador independiente no puede comprobar el MAC porque no tiene `k_tok`. Solo verifica que cada ballot use un `token_id` emitido, sin repeticiones, y que `#ballots ≤ n_max`.
+- **Limitación declarada: votos de relleno de la autoridad.** La lista de tokens emitidos la escribe la misma autoridad que tiene `k_tok`. Si emite 20 tokens y solo 15 votantes reales reciben uno, puede votar con los 5 restantes; esos ballots tienen tokens válidos y pruebas OR válidas, así que ni la urna ni el verificador pueden distinguirlos de votos legítimos. Por tanto **la elegibilidad NO es verificable públicamente**: el informe no debe afirmarlo. Mitigarlo exigiría un padrón público de votantes con credenciales que la autoridad no pueda usar por ellos (p. ej. firmas de los propios votantes), lo que queda fuera de alcance. Lo que sí puede hacer cada votante es comprobar que **su** ballot (`ballot_hash`) aparece en el expediente.
 
 ---
 
@@ -124,10 +125,10 @@ Para cada caso negativo se puede decir en qué paso se rechaza:
 |---|---|---|
 | U0 | Elección abierta; esquema JSON; `version`, `group_id`, `election_id` | `E_CLOSED`, `E_FORMAT`, `E_VERSION`, `E_ELECTION` |
 | U1 | Decodificación de puntos y escalares (§0.1) | `E_POINT_ENCODING`, `E_IDENTITY`, `E_SCALAR_RANGE` |
-| U2 | Token: MAC válido → existe → no consumido | `E_TOKEN_MAC`, `E_TOKEN_UNKNOWN`, `E_TOKEN_USED` |
+| U2 | Token: formato → MAC válido → existe → no consumido | `E_TOKEN_FORMAT`, `E_TOKEN_MAC`, `E_TOKEN_UNKNOWN`, `E_TOKEN_USED` |
 | U3 | Prueba OR (V3–V5) | `E_PROOF_CHALLENGE`, `E_PROOF_EQ_0`, `E_PROOF_EQ_1` |
 | U4 | No duplicado: `ballot_hash` nuevo **y** `(α, β)` no aceptado antes | `E_REPLAY`, `E_DUP_CIPHERTEXT` |
-| U5 | **Transacción SQLite:** `UPDATE tokens SET used=1 WHERE id=? AND used=0` (debe afectar exactamente 1 fila) + `INSERT ballot` | `E_TOKEN_USED` (por carrera) |
+| U5 | **Transacción SQLite:** `UPDATE tokens SET consumed_at=? WHERE election_id=? AND token_id=? AND consumed_at IS NULL` (debe afectar exactamente 1 fila; además un trigger impide re-marcar un token consumido) + `INSERT ballot` | `E_TOKEN_USED` (por carrera) |
 
 - `ballot_hash = SHA-256(JCS(ballot sin timestamp))`. El `timestamp` lo pone la urna, no el cliente.
 - Al cliente se le responde `{accepted: false, code}`. El log interno guarda el detalle. El código no le da al atacante un oráculo útil porque el algoritmo de verificación es público.
@@ -176,6 +177,7 @@ El verificador está en `src/verifier/`, **importa solo `src/crypto/` y `src/sch
 - **Agregado recalculado == agregado publicado.** Se reporta el agregado recalculado.
 
 **B. Declarado por la autoridad (NO verificado criptográficamente)**
+- La elegibilidad: que cada token emitido corresponda a un votante real. El verificador no detecta votos emitidos por la autoridad con tokens sobrantes (§3).
 - El resultado `yes/no` anunciado. Solo se comprueban consistencias triviales: `0 ≤ yes ≤ n_ballots` y `yes + no = n_ballots`.
 - Texto fijo en el reporte: *"Sin prueba de descifrado (Chaum–Pedersen sobre (G, H, A, B − k·G)), el verificador no puede confirmar que el resultado corresponde al agregado. Esta prueba está fuera de alcance; la confianza en el descifrado recae en la autoridad."*
 
@@ -299,4 +301,4 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 - [ ] El verificador no importa `protocol/`, `persistence/` ni `api/` (comprobado con `no-restricted-imports` en `eslint.config.js`).
 - [ ] El reporte del verificador separa "verificado" de "declarado por la autoridad".
 - [ ] Las métricas para 1, 5, 10 y 20 votos se generan automáticamente.
-- [ ] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.
+- [ ] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, elegibilidad no verificable públicamente —votos de relleno de la autoridad—, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.
