@@ -159,21 +159,21 @@ export function verifyVoteProof(ctx: ProofContext, ct: Ciphertext, proof: OrProo
   return { valid: true };
 }
 
+export type DecodeResult =
+  | { readonly ok: true; readonly ciphertext: Ciphertext; readonly proof: OrProof }
+  | { readonly ok: false; readonly step: 'V1' | 'V2'; readonly code: string; readonly reason: string };
+
 /**
- * Verificación completa V1–V5 a partir de datos serializados (lo que usan la urna y el verificador).
+ * Pasos V1–V2: decodificación estricta de un ballot serializado.
  *   V1: puntos canónicos (α, β, A0, B0, A1, B1) y α ≠ identidad
  *   V2: escalares canónicos < q (c0, c1, s0, s1)
- *   V3–V5: ver verifyVoteProof
+ * La urna la usa en su paso U1, antes de validar el token.
  */
-export function verifyVoteProofHex(
-  ctx: ProofContext,
-  ctHex: CiphertextHex,
-  proofHex: OrProofHex,
-): VerificationResult {
-  let ct: Ciphertext;
+export function decodeBallotHex(ctHex: CiphertextHex, proofHex: OrProofHex): DecodeResult {
+  let ciphertext: Ciphertext;
   let commitments: OrCommitments;
   try {
-    ct = decodeBallotCiphertextHex(ctHex);
+    ciphertext = decodeBallotCiphertextHex(ctHex);
     commitments = {
       A0: decodePointHex(proofHex.A0),
       B0: decodePointHex(proofHex.B0),
@@ -181,25 +181,34 @@ export function verifyVoteProofHex(
       B1: decodePointHex(proofHex.B1),
     };
   } catch (e) {
-    if (e instanceof CryptoError) return reject('V1', e.code, e.message);
+    if (e instanceof CryptoError) return { ok: false, step: 'V1', code: e.code, reason: e.message };
     throw e;
   }
 
-  let proof: OrProof;
   try {
-    proof = {
+    const proof: OrProof = {
       ...commitments,
       c0: decodeScalarHex(proofHex.c0),
       c1: decodeScalarHex(proofHex.c1),
       s0: decodeScalarHex(proofHex.s0),
       s1: decodeScalarHex(proofHex.s1),
     };
+    return { ok: true, ciphertext, proof };
   } catch (e) {
-    if (e instanceof CryptoError) return reject('V2', e.code, e.message);
+    if (e instanceof CryptoError) return { ok: false, step: 'V2', code: e.code, reason: e.message };
     throw e;
   }
+}
 
-  return verifyVoteProof(ctx, ct, proof);
+/** Verificación completa V1–V5 a partir de datos serializados (la usa el verificador independiente). */
+export function verifyVoteProofHex(
+  ctx: ProofContext,
+  ctHex: CiphertextHex,
+  proofHex: OrProofHex,
+): VerificationResult {
+  const decoded = decodeBallotHex(ctHex, proofHex);
+  if (!decoded.ok) return reject(decoded.step, decoded.code, decoded.reason);
+  return verifyVoteProof(ctx, decoded.ciphertext, decoded.proof);
 }
 
 // ──────────────────────────── Serialización ────────────────────────────

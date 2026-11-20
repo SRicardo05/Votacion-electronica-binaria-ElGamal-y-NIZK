@@ -264,16 +264,34 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 ### Fase 5: Urna (`ballotBox.ts`) y API Express
 - Pipeline U0–U5 en la capa de protocolo; las rutas solo validan el esquema y delegan.
 - Pruebas con `supertest`: todos los códigos de §4, replay exacto → `E_TOKEN_USED` (U2 llega antes que U4; se documenta), ciphertext duplicado con token nuevo → V3 por el atado al token (y U4 como segunda barrera).
+- *Implementado:* U4 `E_DUP_CIPHERTEXT` solo se alcanza si quien conoce `r` re-prueba el mismo `(α, β)` con otro token (p. ej. la autoridad con tokens sobrantes); `E_REPLAY` queda como restricción `UNIQUE` en la base, porque el hash incluye `token_id` y un reenvío choca antes en U2. Un ballot rechazado en U0–U4 nunca consume el token; en U5 el consumo se deshace si falla la inserción. Los secretos de la autoridad se guardan en claro en SQLite (limitación declarada en el README).
 
 ### Fase 6: Cierre, expediente y verificador
 - `tally.ts`, `record.ts` (JCS + firma), `verifier/`.
 - Pruebas positivas: todos 0, todos 1, mezcla conocida (p. ej. 13 sí / 7 no); el verificador reproduce el agregado.
 - Pruebas de manipulación del expediente: borrar un ballot, cambiar un `β`, alterar `declared_result`, cambiar la firma, duplicar un ballot. El verificador debe reportar la falla concreta en la sección A, o en B si se altera el resultado *y se re-firma* (eso demuestra la limitación de la corrección 2).
+- *Implementado:* mensaje firmado `m = "VOTE-BIN-v1/election-record" || SHA-256(JCS(expediente sin "signature"))`. El cierre es una sola transacción (si el descifrado falla, la elección sigue abierta) y el expediente se guarda inmutable (tabla `records` con triggers). Comprobaciones del verificador y qué manipulación detecta cada una (con re-firma de la autoridad):
+
+  | Comprobación | Qué verifica | Manipulación que la hace fallar |
+  |---|---|---|
+  | A1 | Esquema v1 estricto | campo faltante/extra, valores negativos |
+  | A2 | Versión y suite | `version` distinta |
+  | A3 | Generador estándar, clave pública válida | generador cambiado |
+  | A4 | Firma Ed25519 | cualquier cambio sin re-firmar; firma con otra clave |
+  | A5 | Tokens únicos, consumidos ⊆ emitidos, emitidos ≤ n_max | token consumido no emitido; tokens de más |
+  | A6 | `ballot_hash`, elección, token emitido y único, sin duplicados, consumidos = tokens de los ballots | borrar o duplicar un ballot; cambiar β sin rehacer el hash |
+  | A7 | Prueba OR de cada ballot | cambiar el voto de un ballot aunque se rehaga su hash (V3) |
+  | A8 | Agregado recalculado = publicado | borrar/duplicar/cambiar un ballot; agregado falso |
+  | A9 | `n_ballots` = ballots publicados ≤ n_max | `n_ballots` falso |
+  | B | 0 ≤ sí ≤ total y sí + no = total | resultado incoherente |
+
+  Pruebas que **documentan lo no detectable**: resultado anunciado falso pero consistente (7/13 en vez de 13/7) y votos de relleno con tokens sobrantes; en ambos el verificador reporta `ok`.
 
 ### Fase 7: Cliente CLI y demo de extremo a extremo
 - `voterCli.ts` (construye el ballot localmente; nunca recibe claves de la autoridad).
 - `npm run demo`: crea la elección, emite 20 tokens, simula votos, cierra, exporta `election_record.json` y ejecuta `verify`.
 - Opcional, si sobra tiempo: una página web mínima servida por Express que use el mismo `src/crypto` empaquetado.
+- *Implementado:* `npm run vote` y `npm run demo` (expediente en `data/demo/expediente.json`). Añadido no previsto: **huella de parámetros** `SHA-256(JCS(params))` que el votante puede fijar con `--params-sha256`; si no coincide, el cliente no envía nada (evita que la urna sustituya la clave pública). La demo usa el token del último votante para dos ataques (MAC falsificado → U2, retos intercambiados → U3) y ese votante después vota con éxito, lo que muestra que un rechazo no consume el token. La página web opcional no se implementó.
 
 ### Fase 8: Métricas (§8.3 del PDF)
 - `bench/metrics.ts` para N = 1, 5, 10, 20 (repetir cada medida ≥ 30 veces y reportar mediana y p95 con `performance.now()`):
@@ -282,6 +300,7 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
   - tiempo de verificación por voto en la urna (U1–U3);
   - tiempo total de auditoría del verificador sobre el expediente de N votos.
 - Salida en `results/metrics.csv` y en tabla markdown lista para el informe.
+- *Implementado:* `npm run bench` (`bench/metrics.ts`). Cada tamaño corre 30 elecciones independientes en SQLite en memoria, con una ronda de calentamiento descartada. Además de las cuatro columnas pedidas se reporta la verificación criptográfica aislada (U1 + U3) y el tamaño del expediente. Resultados en `results/metrics.{md,csv,json}`. Lectura (i5-10300H, Node 24): creación ≈ 12 ms y verificación ≈ 10 ms por voto, constantes en N; la verificación criptográfica es ≈ 95 % del tiempo de la urna; la auditoría crece linealmente (≈ 10,5 ms por ballot, ≈ 210 ms para 20). El costo lo dominan las 8 multiplicaciones escalares de la prueba OR en JavaScript puro (`@noble/curves`).
 
 ### Fase 9: Documentación para la Entrega 2
 - Reescribir la §4.3 del informe con §2 de este plan (ecuaciones + transcript).
@@ -295,10 +314,10 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 
 ## 8. Criterios de aceptación globales
 
-- [ ] Una sola suite criptográfica, declarada en código (`suite_id`) y en el informe.
-- [ ] La prueba OR está especificada con ecuaciones y bytes exactos, y tiene vectores de prueba.
-- [ ] Casos de la evaluación (voto 2, compromiso modificado, reto alterado, token repetido) pasan con el **código y el paso** esperados.
-- [ ] El verificador no importa `protocol/`, `persistence/` ni `api/` (comprobado con `no-restricted-imports` en `eslint.config.js`).
-- [ ] El reporte del verificador separa "verificado" de "declarado por la autoridad".
-- [ ] Las métricas para 1, 5, 10 y 20 votos se generan automáticamente.
-- [ ] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, elegibilidad no verificable públicamente —votos de relleno de la autoridad—, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.
+- [x] Una sola suite criptográfica, declarada en código (`suite_id`) y en el informe.
+- [x] La prueba OR está especificada con ecuaciones y bytes exactos, y tiene vectores de prueba.
+- [x] Casos de la evaluación (voto 2, compromiso modificado, reto alterado, token repetido) pasan con el **código y el paso** esperados.
+- [x] El verificador no importa `protocol/`, `persistence/` ni `api/` (comprobado con `no-restricted-imports` en `eslint.config.js`).
+- [x] El reporte del verificador separa "verificado" de "declarado por la autoridad".
+- [x] Las métricas para 1, 5, 10 y 20 votos se generan automáticamente.
+- [x] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, elegibilidad no verificable públicamente —votos de relleno de la autoridad—, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.

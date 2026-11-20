@@ -7,5 +7,6 @@ export * from './elgamal.js';
 export * from './suite.js';
 export * from './hashing.js';
 export * from './mac.js';
+export * from './sign.js';
 export * from './transcript.js';
 export * from './orProof.js';
