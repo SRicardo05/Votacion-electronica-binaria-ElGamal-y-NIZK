@@ -314,10 +314,10 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 
 ## 8. Criterios de aceptación globales
 
-- [ ] Una sola suite criptográfica, declarada en código (`suite_id`) y en el informe.
-- [ ] La prueba OR está especificada con ecuaciones y bytes exactos, y tiene vectores de prueba.
-- [ ] Casos de la evaluación (voto 2, compromiso modificado, reto alterado, token repetido) pasan con el **código y el paso** esperados.
-- [ ] El verificador no importa `protocol/`, `persistence/` ni `api/` (comprobado con `no-restricted-imports` en `eslint.config.js`).
-- [ ] El reporte del verificador separa "verificado" de "declarado por la autoridad".
-- [ ] Las métricas para 1, 5, 10 y 20 votos se generan automáticamente.
-- [ ] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, elegibilidad no verificable públicamente —votos de relleno de la autoridad—, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.
+- [x] Una sola suite criptográfica, declarada en código (`suite_id`) y en el informe.
+- [x] La prueba OR está especificada con ecuaciones y bytes exactos, y tiene vectores de prueba.
+- [x] Casos de la evaluación (voto 2, compromiso modificado, reto alterado, token repetido) pasan con el **código y el paso** esperados.
+- [x] El verificador no importa `protocol/`, `persistence/` ni `api/` (comprobado con `no-restricted-imports` en `eslint.config.js`).
+- [x] El reporte del verificador separa "verificado" de "declarado por la autoridad".
+- [x] Las métricas para 1, 5, 10 y 20 votos se generan automáticamente.
+- [x] Las limitaciones (sin prueba de descifrado, MAC de tokens no verificable públicamente, elegibilidad no verificable públicamente —votos de relleno de la autoridad—, autoridad única, sin anonimato de red ni resistencia a coerción) están declaradas en el README y en el informe.

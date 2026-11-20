@@ -1,0 +1,501 @@
+{
+  "version": "v1",
+  "suite_id": "VOTE-BIN-v1:ristretto255:sha512:hmac-sha256:ed25519",
+  "params": {
+    "version": "v1",
+    "suite_id": "VOTE-BIN-v1:ristretto255:sha512:hmac-sha256:ed25519",
+    "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+    "question": "¿Aprueba la propuesta del curso?",
+    "options": [
+      "no",
+      "si"
+    ],
+    "n_max_voters": 20,
+    "generator": "e2f2ae0a6abc4e71a884a961c500515f58e30b6aa582dd8db6a65945e08d2d76",
+    "public_key": "26bfc12bf610043d7093c674931f1b9e7260da21b0bf0d03109725698e00986f",
+    "authority_sign_pk": "6d80578816bf01e63424d96c9946bd90cd142d3d1482073a45c37b4059188ef6",
+    "opened_at": "2026-11-20T06:52:48.310Z"
+  },
+  "tokens": {
+    "issued": [
+      "06f099823a6b854e8f7a91d7366eec56",
+      "079537321709cc8a252e452b686b75d8",
+      "090993043e3329d8e8212ef7dceb8e82",
+      "0fd974cb66015a51fe3342f262b9f76f",
+      "103b7aef2267f1dd281400e93e4237d9",
+      "234413859ead57dd3feb986ee2425bbe",
+      "491ff7c39275f9de9d73ead51d4654e0",
+      "50ea3c6de352922973673b6bbfbb853d",
+      "53b718d305f8d3c2a3103fa8ea632585",
+      "5a67205eb5cd5dc74ab53aaaca903267",
+      "6009eb2a02de6c2996174ee536caf981",
+      "789e03caac95039e4b62ecbaa5c2e1a6",
+      "971b978946916942449429c972a4c883",
+      "9964e23d63164bc7d18629564ac176cb",
+      "af61139b16e55b252159277c9ec0683b",
+      "b45b2be5a453243d57d11f7add6c1dfa",
+      "cc3de9c390838f731ef495a2e1e790db",
+      "d9ba6702009bd0e706fa90e725662fb7",
+      "db9384bb61cf9c09c248ffda951fc3de",
+      "fb37ceb1251905c280df26ddfd205d77"
+    ],
+    "consumed": [
+      "06f099823a6b854e8f7a91d7366eec56",
+      "079537321709cc8a252e452b686b75d8",
+      "090993043e3329d8e8212ef7dceb8e82",
+      "0fd974cb66015a51fe3342f262b9f76f",
+      "103b7aef2267f1dd281400e93e4237d9",
+      "234413859ead57dd3feb986ee2425bbe",
+      "491ff7c39275f9de9d73ead51d4654e0",
+      "50ea3c6de352922973673b6bbfbb853d",
+      "53b718d305f8d3c2a3103fa8ea632585",
+      "5a67205eb5cd5dc74ab53aaaca903267",
+      "6009eb2a02de6c2996174ee536caf981",
+      "789e03caac95039e4b62ecbaa5c2e1a6",
+      "971b978946916942449429c972a4c883",
+      "9964e23d63164bc7d18629564ac176cb",
+      "af61139b16e55b252159277c9ec0683b",
+      "b45b2be5a453243d57d11f7add6c1dfa",
+      "cc3de9c390838f731ef495a2e1e790db",
+      "d9ba6702009bd0e706fa90e725662fb7",
+      "db9384bb61cf9c09c248ffda951fc3de",
+      "fb37ceb1251905c280df26ddfd205d77"
+    ]
+  },
+  "ballots": [
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "789e03caac95039e4b62ecbaa5c2e1a6",
+      "ciphertext": {
+        "alpha": "8c536bc883e5d9bc8e2e37f760ae702cf37bc74014c591dde7058459f1d6665a",
+        "beta": "3a80af2a154c9ef441ee101514d74d25f84efcf6b1db6182d52160fa20957112"
+      },
+      "proof": {
+        "A0": "b4678e8931ae5eaf1b5d7f0cf4763447866d8a78b33b5486d545e3332f66c227",
+        "B0": "c6414aa614300df9bf822fec5f614eef4fee849b1418d47d9e06ec482b1cb765",
+        "A1": "183615553b9e0d5edbf0b80fa65c85864d1b33a0ba63079519b7758804375019",
+        "B1": "8404a8de32c32214d8e174755531c77365559434c7f39e20bc08d25c466d6b12",
+        "c0": "4d0bbf933fdce550d9082ca8421c8ec6293db7a1dc6fc14034473730a22e000a",
+        "c1": "d59aac69ba966c100d2c6273319030acd006bc10c6c6850796588706aa682f01",
+        "s0": "fe13f4c0a690829bfd2243bb62ba2e707ee230899eacc32e6d90e7625e68490c",
+        "s1": "d2a3f1b498a75331400320e1f05b2e876d63e810670466d4e4faeab0e40ac109"
+      },
+      "received_at": "2026-11-20T06:52:48.386Z",
+      "ballot_hash": "833ba06740637dcdd31e96c414b6c072d504d697aeb0b0ef0db277e7d1b8da9f"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "db9384bb61cf9c09c248ffda951fc3de",
+      "ciphertext": {
+        "alpha": "c064adc17210f21e9b1d5f0b88224f25fe2cbfd2e7cf567aeeb4a518ac57bf48",
+        "beta": "34fe39ac3b83f6014ba411b13e9c9c8bc1eca4a6e8c5bd73a102770a3da3657f"
+      },
+      "proof": {
+        "A0": "a2151d42e23e4efc0557325d101718eb5d39fb1c8a485fc67af6e10749ea7151",
+        "B0": "1abe6a26dfc93bd53adc47e42c21d94ebbeb0d490b958e6a81f78e3f2aae1229",
+        "A1": "5870615e59b00f27445bfebc26031452931cbb2a10b589c462e60562d80aa424",
+        "B1": "ca0caac9ee1ff7c6048e9ba881ff6554887a22b3722514a4f1cb11220ef99444",
+        "c0": "a7f4d22dbf047d6429545dc6e1c9c1d9a967b734c9266e1b91615b35a1c91308",
+        "c1": "0706167d21f21d0f534ac06b53bebe16e3ec1c72f41bb69b89d3c1ef65b3b005",
+        "s0": "bad067015bf54ae54beae0b3474123a9f1e547f86f758751079026cb2cdaef0e",
+        "s1": "a7ce046fcbb9e2f5067e2d3eef98c604b905f2d1bf3e1a4d5010bd1cc44ab008"
+      },
+      "received_at": "2026-11-20T06:52:48.417Z",
+      "ballot_hash": "59cfcc4ad034180b77e116129e1e5641597d24e5c6f49034e388f6722cdc0cf5"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "06f099823a6b854e8f7a91d7366eec56",
+      "ciphertext": {
+        "alpha": "1ccfef3341c633683c2cb8f50af8d863677217f0fbd21a51ffd1abf757bf3e71",
+        "beta": "b2bc6830f45e7c7fbb391c03f77f9db2d4939c95cc67b995bbdaaa4d5330fb7e"
+      },
+      "proof": {
+        "A0": "625612bbfaa56d03612d086c377ae6028ae42e21ad56d5041055b7388e319e72",
+        "B0": "0e91126b8ecad08d4ff40669470972a3ac0670e324895fbaf7c778bef9f70638",
+        "A1": "729298220f3a557cd6bdc9f0ccb6a53baea806e297cefd6496b25e1813d24c20",
+        "B1": "b65df075f91f8166f1e5660b12c267d7a97c700ecc012d0bc4ce75d56fd39277",
+        "c0": "b6e9c260d733dc8de6c1c4c57c61d38d770fea985ec98dded9ae5c52f13acc01",
+        "c1": "63187d625a76de4170d0abd342d1237753c9166d3a1736f28eb897741712f602",
+        "s0": "1c21a7d60b8822a459e43befc60e9fe5678486bc060a4f8ae1af3fe9e23a9006",
+        "s1": "d5f42719c929fcf0452c28930f363521be5ed4903dc93b0e30841ae8235fd802"
+      },
+      "received_at": "2026-11-20T06:52:48.446Z",
+      "ballot_hash": "bb60dd6c35702e10d4542af84cb5d0462afeb9c111e56b4094620a31c0cf9473"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "971b978946916942449429c972a4c883",
+      "ciphertext": {
+        "alpha": "c2bb4d447e24b921e8d32a466ffd358fd872f04600ef83821980d3fac413de7b",
+        "beta": "267610539b3c81adc2bc963627cfaa77b343623df79b54cf064ff9f1df79a411"
+      },
+      "proof": {
+        "A0": "28793855096e04171e9d20c1c184623fac03917281f71ec3af4d0066391dae5b",
+        "B0": "0690e2e7285e4e911e626f7d62f8a7b621c4d33333b12d978dd14893396bcb31",
+        "A1": "7c66271670074b72cdd2b227e8b5ab316f46922c20ca09a4ba5e1c99d89afe5b",
+        "B1": "c8cfa9e39aff8c6e60004dd6c98556adfb15b698dbcadde001416a8926d30b07",
+        "c0": "13a6e7ed41e4ae7123b52557265603a73d4a7bac8842e92d4cf0b6d466242a07",
+        "c1": "71d1afcf0416e70ec16b32f6ea991085fde0302ee681e00be4f9e4a442dece0a",
+        "s0": "5ecbf1a24a3896c46891a51c1dec8037f98e03798e00b2d87890d684fa43210b",
+        "s1": "846a1525f3df4fd246fabb6259836b6fe63f86b3d3e7737f7aa35d40f20c4309"
+      },
+      "received_at": "2026-11-20T06:52:48.474Z",
+      "ballot_hash": "e641808131d9f00f2b4f4e0b76c21dc3630e627066fab5b0954a0e3ea2ae1080"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "d9ba6702009bd0e706fa90e725662fb7",
+      "ciphertext": {
+        "alpha": "9ed67fe2e9fe9206938839f37e2c4932560f8d12783c66eea23b8c6a9dba3903",
+        "beta": "42eb91217dec083e74241e3076740dfee757a20b528804fd1f9046b4e79cf411"
+      },
+      "proof": {
+        "A0": "d01c091e435a0f07a1e70bfbf6aed979a170afaaa6ae042562ac23ac78e97876",
+        "B0": "ba2c30e2a220f83d541fafefc1dd4316da9d6ac2dbd04c8c87a2b8e0a9752259",
+        "A1": "4e08a990afb991b16d8bba39f77391a9e0c08541b0eb33d2609470de069b0728",
+        "B1": "bc3981e442460c8f6c8e2cd69d54697f1e6dd83ce31c24b1203845e9ea35081a",
+        "c0": "afe42812862b5e696d3baad2649f5ddec33966994e609855e7892e4b38b72e06",
+        "c1": "421e2a478220c7054c7470d7d1d15fc29e09cbfab2f06272aff345c1a47b0f08",
+        "s0": "b7a5f59cabd3376d238c40ae11cd6358d9fbefd1eef00bfd04c31bc9d65bc505",
+        "s1": "758ab15a92f1cb9f21ddcb3ed5708beceb6b8b4fa441c52620b6cfbb46422c00"
+      },
+      "received_at": "2026-11-20T06:52:48.501Z",
+      "ballot_hash": "d7c4a4676a0af0e21e524bbdf73d5f740ccc1a67f9b1312107526362fb52baab"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "b45b2be5a453243d57d11f7add6c1dfa",
+      "ciphertext": {
+        "alpha": "20eb441d1bba05c27a248c6f1ff280982b15b725f5e96ec34ce7b9c896cbeb12",
+        "beta": "5434607c5a5872828f3ab1c75d86e249c0a91ec831a08ef1192a417b21f36d00"
+      },
+      "proof": {
+        "A0": "a6f17321207558ef035186ad9d4e61b4ed750af24b0c1e43f86e381fdf249531",
+        "B0": "007471b30ee86a5edcdd0058fb21635c811402cbdb1b0ab249ae7650e68f040e",
+        "A1": "ec56d2734646d940353eb156010dd11758799c8378aed985570d67b328dbfe38",
+        "B1": "74eb947e25c2adb39c2903be08d765466f584a312d934329f70ce7eca431e778",
+        "c0": "a3b8efb0fa908675cc5d5a33dc0a50d527c24576eee067e95fee86716051590f",
+        "c1": "102042ddbfdf5265f82d82432f3370da123cff4f86246c058d200471dcabae01",
+        "s0": "bae1f813da704c08d546ba83f72276032f569cdcf2b3ee0f3071d6f890bc9107",
+        "s1": "08f43d568fa8c604e2526df77681929d51216d9f45eb889f52ad5f62bffecc08"
+      },
+      "received_at": "2026-11-20T06:52:48.528Z",
+      "ballot_hash": "6b2ac0d10222dfdf797ec4f4e0f2204e69cea8eb79a3b43bc24a411e5dfbfbc0"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "af61139b16e55b252159277c9ec0683b",
+      "ciphertext": {
+        "alpha": "88403ae4433e9987a1ef33a53a5fcbd7eabeb459f1162623ce5e5d63054e5132",
+        "beta": "5af599ee43e709fda1402765908ebaa4e5ce318e30f2e816bc30d995c0ab253d"
+      },
+      "proof": {
+        "A0": "c2f38d413f4da224086f2f3e07334564255676f27e47363886eb2ec73d21ed28",
+        "B0": "d6bfc0c2476bdcb9cf4a171f16b0412397d3c7773cc1ead278aaa63b18975f74",
+        "A1": "ec959fc81f82f6eeb62a9976a0e13606093ec0e7fd38606d928063051c40914d",
+        "B1": "8853bc56b7d0b6eb2b21a6ae45d50804373982187eca9b4a902d0bf1a4a47a5e",
+        "c0": "e37ee414d3db21d7cb07071d58b093a2f767fbd344a995b75242e47a735b5505",
+        "c1": "80df8ce130929ed204428dc49ead08694280470a429044e1e53246c42fbaf706",
+        "s0": "6a8a73e9200e10c2cc4c4b0f901796de368903fbb1aa1b1d561c1a3f660cb50b",
+        "s1": "f07415e9bb6dffd57415fadd7883641767ebe1a0acccbed0c1ca054ea938590a"
+      },
+      "received_at": "2026-11-20T06:52:48.554Z",
+      "ballot_hash": "b84c3e22f714ef80e5838f0f81bf033b939da643eb9f2ed12a6114c8253d274a"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "234413859ead57dd3feb986ee2425bbe",
+      "ciphertext": {
+        "alpha": "d4abfc6c52cda9cc4d77c345b3cec13a4a59f7e78482f6bcc50b4b31782b5e17",
+        "beta": "1a786d20143b6b099d6c66e794c9df6d1dfc0f61a1a304e55957ad674c7c0003"
+      },
+      "proof": {
+        "A0": "28b0ef49b80b9790b7ba88deddb7cb00ae108dd01b5d416c65763b679ad72f01",
+        "B0": "40b1d65ff1b79f8cd91b342223a6a8f0e26d9a297023ccb50032c70f6b1e6a44",
+        "A1": "807188f18b7167d73a9c0e594c10864e9733787a11895bf7c47d5585057bcb0f",
+        "B1": "d64bb2db077a7f0218467e178629b23134330ae3a27e2e82598c50fcf23f606e",
+        "c0": "f7d93f69ac73d7a41527b05757758ae131734e4418ed103ffefe212feae50300",
+        "c1": "ae05ff3d741d721b507d168d36941db646154cffb408b8717c3bda054a86890d",
+        "s0": "a388d9c591ef02843970f3e3f4226a0207b41ec9aa1c64fba9d797982312500b",
+        "s1": "603144118a00917fcc34223c7454b1ebdc0d96625bee3a0a1a77db1fffc01504"
+      },
+      "received_at": "2026-11-20T06:52:48.583Z",
+      "ballot_hash": "e6a908cb0ad2b6e1b013e86b21ae184fe8eadec5ecebe63e3b5e17f353cb9152"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "50ea3c6de352922973673b6bbfbb853d",
+      "ciphertext": {
+        "alpha": "b6d2a84b577ed312f12dc243a59edd8ec0afa16e5cc57bde16e021dd28f83f30",
+        "beta": "30dffb13aa80cc154aedde23f4cb1a8f90db39d74e87ce845646d623440d3626"
+      },
+      "proof": {
+        "A0": "44002dd7408de1e71e8998e15c2a63f46cade477c7d110b4054e97e0d2ee620e",
+        "B0": "14ee25c4a2978c4f52feea523aa29a91c78f06deff2d0f29e7fe82569b783567",
+        "A1": "30fb98f851c9576eb3e86795431189a29552af706dbf05bcd99dd7f910cf874a",
+        "B1": "b24c2ef28b75d99a90e4347d10cdc1d2c949b82bba1b69c20a1af5db7fa4d259",
+        "c0": "ca7dfeaf57a83e79ef1aed3a49f78c5a6ab9895cb685259cf293e82b68afe90f",
+        "c1": "50cae54e2fab0856c166ea3a62a656498466c9cad672c2f2d55667f62bb63602",
+        "s0": "9eb28292c0e1cb795f8f527d1046a73d80885cd3c634a94a66d106cd5cc0060f",
+        "s1": "93b15da7c0cb71e034982a512ece1d5dda3d5697cc6bcbfdc9d6849cd9f44c0e"
+      },
+      "received_at": "2026-11-20T06:52:48.610Z",
+      "ballot_hash": "9173112b78d78e5d7493a1beb7f64f7df8c2bed5f8ec750c2d33ff81336a605d"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "079537321709cc8a252e452b686b75d8",
+      "ciphertext": {
+        "alpha": "0cbff773f3ff78ca33cd108946bdee0f04439fd6b963a0bd176a6138e42ae109",
+        "beta": "ee6c290a356dd61750a002da3beac16462365c9e1e6630a98abb287e6e08655f"
+      },
+      "proof": {
+        "A0": "aa2cad3cb1fbf3c4f64dba9ba2da19e89b58040f620c99e20558206910cc1035",
+        "B0": "3257d8eccbb1f8311bac30a842f7ae80ac61167331107e2478bb80f6c102936a",
+        "A1": "c80c496baf3e28a4e9ae01977f5786c443dc8f492f48522e500b7d1bc50acc01",
+        "B1": "f8cd75be13449cbfd0339a5e339e729a98c09f79ca81121b97d29ccd42aca137",
+        "c0": "64b8670c1a4acaf9025f2a0853891bfd5864b35bfeee2361681700fc34509703",
+        "c1": "6051dd8097f336f4ca67b6e5361c056ffae8e6461ef3da8760eba4f5f81ad407",
+        "s0": "f19b1826ce99cfaee317ac42d75e98a9c00b5d806cdfdac81d844906f929e50b",
+        "s1": "e3413eb83ec1c7e96c7cbe55428bf545ef286e9193f8d4211f0112935f4a2a0f"
+      },
+      "received_at": "2026-11-20T06:52:48.638Z",
+      "ballot_hash": "3ead852fc9bcb2f7d3a445f8b001d9107225fe20cc43809761600f32bcad4198"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "cc3de9c390838f731ef495a2e1e790db",
+      "ciphertext": {
+        "alpha": "288426e49bf868061c7f17db0b3551c672bc7dc12538347ee89aae10e06fe50d",
+        "beta": "92adc5f97f4f51b307eeaa6c417385708e0f74b28920b6feb550dfd0e8765922"
+      },
+      "proof": {
+        "A0": "9ee2d78772ee4748cde7ca41b0a98dbe562b1c03169dceadc59ce4cdd18e2726",
+        "B0": "2afe864b30a633d382382e5a2874bab7f49cb817ebc0afbb2b8a7435cf690c11",
+        "A1": "46ba753c056422edeb15547edf7d6a34cfecf430cc8359f04728e6f79f77dc22",
+        "B1": "3a4e42f68746462d5dc900ffebea63f1319ed041f6d7b6bfbb858d22f7c83731",
+        "c0": "7b51092e383999600f3d865915feb5b4971183ee8c6f08ee99f857e6251bc60b",
+        "c1": "830030bcc52d3a82ee561b4db30076cebe8a11009c172a7c35c4d5d9b599fd03",
+        "s0": "64a074c007b765555a6dc8909323618f9518b9fafc613beee3708b33ef763002",
+        "s1": "9b56ab4b43ca9f305739af02d6e56c27f1068b93feaf834d2842e5032bec4204"
+      },
+      "received_at": "2026-11-20T06:52:48.664Z",
+      "ballot_hash": "18520adfd0a9cfbe5182f108929fab521e8af07596d8efe27b4f2e29719b3c41"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "5a67205eb5cd5dc74ab53aaaca903267",
+      "ciphertext": {
+        "alpha": "787e5bf649ed12fc79b750bdc2121f787b7ed9c52a8fb32c3a0803af01d51b07",
+        "beta": "e286a1df7d75fd3438737ceb6cfdb3e5a1e78ec57f89b20d1cffe1dbe449193c"
+      },
+      "proof": {
+        "A0": "12e3f913d7517699d5bb2a5275bb197d9945d435b6d51e02a0c41600619e7d14",
+        "B0": "f05ca49f2d7dfd370eca3e748947a1026c1ca570122744600f29629a98a57b79",
+        "A1": "04028647ae8835b10a16ea1fdd25601cddc0a60e351f04128aca2f4505c63e3b",
+        "B1": "44c14caa470b5e6246388bd726a9ff8e669676b8f5453af9c24cbbb20e4d2c39",
+        "c0": "ef19dcf25ab13a61d22cfb3d41c511d360be0d81ae04ffaea4ccf46996059609",
+        "c1": "3bb4c03a7c9f701a57bd8d36b0e7c5b45755892b461f242565a4115b6d03c206",
+        "s0": "2e3aa21402a661b43c62f72c10d90990f1b0b7fcbf53f7980bc3506930c22f08",
+        "s1": "19944ae030a63356e5d4553202b83cb44dedff4d2664ca52d79efe46b458ac08"
+      },
+      "received_at": "2026-11-20T06:52:48.689Z",
+      "ballot_hash": "7def530beb5120c2658b4dcadca41864c08931c27a4edac9bd37eb144ebe0901"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "103b7aef2267f1dd281400e93e4237d9",
+      "ciphertext": {
+        "alpha": "c67b67dbe1bff73c6490ccdceb6132bb34c9e68ef92b09691462fe88c667f838",
+        "beta": "eea0de54cb7745cdb64f199df4d1cdd0884096ec557b14d7253145e11a4dee51"
+      },
+      "proof": {
+        "A0": "4651c9674276e0d76d177e21b0d09bccad79c29a1f0ef1fe19d99ab584e5b40e",
+        "B0": "34656e0fab8187a7a3f38b61387de0c385ec311f4b3a5695f8718d25a36c7752",
+        "A1": "887b81c0b186917c88c3c96fe6cd7f1d76c308d0077ed2f2d5769e718b0d1745",
+        "B1": "ec32d9f25fc13a31037719c350c5e14bbe74c6a598452db66e1e839badd5e44d",
+        "c0": "350124b398bc3b47efc08175774a5c97b8443396c69b90d64e1f95f3a2e18308",
+        "c1": "7ae0d891a43e828ce7dd0e3e4176c661778e70326988c34414bd4595dc043405",
+        "s0": "61f7aa6a85ca8d716ce88aa38573372f47807e0e62f62bef3b170d1a33304503",
+        "s1": "17456b86049644563732da66a1c24624a541f086d51a36618aa97ce23823080e"
+      },
+      "received_at": "2026-11-20T06:52:48.715Z",
+      "ballot_hash": "f5f63a8d94c4b0879fac4015958e302359f611ddb1678b1231aed498e16ce061"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "9964e23d63164bc7d18629564ac176cb",
+      "ciphertext": {
+        "alpha": "04a15c58c05339a0a0f9f1368a21d92fab730c6153b17a45787c7dcbbf46a373",
+        "beta": "803bfba989e811b00d2ae46d8497af8958c5f281399f3d034414f0010dcc5f07"
+      },
+      "proof": {
+        "A0": "3ebcdb11f6c895ad90d5a44523f82340c22d99a753945a41c6491731cf9b3f51",
+        "B0": "3ea1c8fb0d87421cad3b4b51e9cfb4a49b0fef79bd464d672047febfee360b0f",
+        "A1": "a0a4ff014720a54d9d464061ed6d7b0118379f57fa5f6ea29d6b764074348628",
+        "B1": "525ef7daa8f6109d733174f4de8556c18f9955a6c8173dc00549418511cff422",
+        "c0": "f8f28a39f380a26108b0f9bacc643efe882bb1fbaee83e5923a47c501aff6408",
+        "c1": "99a36cec2b81d257598baed2639886cf5bef66b73ed0eb1d40eb3cdc4a6fa009",
+        "s0": "3dc7b968fcaf223843bdc04d1985ef43f5dd57f82ddd339dca63f3774642060f",
+        "s1": "d7684096568a1c3cbfd9195cd5e07ceb9f804e345c6d75b2b3110de4a6d8d803"
+      },
+      "received_at": "2026-11-20T06:52:48.741Z",
+      "ballot_hash": "00d5a94abef3c38e51bf2763bf32a67f653d89bd402e5bba6f13d65861ab9262"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "090993043e3329d8e8212ef7dceb8e82",
+      "ciphertext": {
+        "alpha": "96f0692940388376f6440f0f938f477870aee9b4c3894af161513477b250a71e",
+        "beta": "621233f03cdf8aa2550bd926ca91f87c11b4998e474a7c602fbb6c3f42739726"
+      },
+      "proof": {
+        "A0": "28bac2ef8aac03818de01cad5dc650a7e2e6a3aec11cd2cd2d009edf19e8b736",
+        "B0": "0e8469632ffd1b5a8f9da55f602183247f9264a5bc716ba2c78cda41e8b52221",
+        "A1": "003fe76bf319fc0790ec710c9a042e7d7c1cc9daa56b82b4849bd396ce03230e",
+        "B1": "7aa41c66e0954e3d4555fb4bee17d88f8d3d9d7f8de5c65897cfc585abb7717a",
+        "c0": "e8bbcdb3ecf48566cacea13a5ab47cf1587c2203d3caa346060e49324102d30d",
+        "c1": "e3122de0bf197ec6d8ac8b7c7ca01315c70820bc3dd4ff079ab80dea49550803",
+        "s0": "08267116ff8503cc4b4416741580a4ec38bc45e59779a015264397a0cd05190c",
+        "s1": "509581b1fc361b27bf4ba0bec2a5ec2f61430ed5fad984dee02ef70340864d0e"
+      },
+      "received_at": "2026-11-20T06:52:48.770Z",
+      "ballot_hash": "e3afe9630d98d1db74dc76f5d4881e5a8660314307c00838b2ab377e531e9b0e"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "0fd974cb66015a51fe3342f262b9f76f",
+      "ciphertext": {
+        "alpha": "643dfbb9435d44569f0cbf9d2d62ceaaf3303c43c63ad26e4a1560fb8a47625f",
+        "beta": "e8eab2e4081ff810f9b92d3a639eb17180e34df7be1e4eeb9ba2802a0d04b674"
+      },
+      "proof": {
+        "A0": "82f013fb49e82e8d62e57a09426fbc1505f4a5307ba25f32dd211ccf40e46536",
+        "B0": "b2fe78a2be98466b366a2ec7988a165dc310cb1567d4b124a0cf3318dce6cb3c",
+        "A1": "78701dedbba24a50732a51969e2894ceb4001bccf4ceba6c6d58279e1065375e",
+        "B1": "f6bc734e5929a36b54e894facefd62fedaa05f42a61b21da21c21a0697c8084a",
+        "c0": "d252be90be10e510d96efab5573079698008fbe539061bb76196faf64fc25400",
+        "c1": "69ccb9101b34f8bbd384c64cd826d3c190c6580b7fb4487b4f510339a689950a",
+        "s0": "ab2a170ef5382c936b02723a69b2695cbbb6d812edbdc0b1ef704b4ccc24310e",
+        "s1": "6b197c430b4f3435486114e67112471ee5985f8a396d15b5fd4b48f516f1f50b"
+      },
+      "received_at": "2026-11-20T06:52:48.798Z",
+      "ballot_hash": "357ebb7246a1238ec5ba4d1b9f55ecdc7dfc4157c597546676295ee35aefe66a"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "6009eb2a02de6c2996174ee536caf981",
+      "ciphertext": {
+        "alpha": "da6fd1cae52bf7f2b7c8685ead3a6f3a7c8f48f384a12b8c4310b436b37dc610",
+        "beta": "f87e5c4c405f493d91a1635100087bb1081e09d9b12c644651af2713e1d3ee06"
+      },
+      "proof": {
+        "A0": "ccdc037ad0f3600582c12a44a1dfb787d037a190d98db81a56c9052de0db4729",
+        "B0": "b2e1fe14ea435f418e366745932fc6984c9b87b6d54d0a589c27a6f03ce7d17a",
+        "A1": "60bd38169e4068f8b64a58203e4916dd1db5b43eb84ab8540200f1b8b5a2ff3a",
+        "B1": "7e28e139179a3da579d4ee30cb8378b82c0f12b328d7b3bdf1574268e03dd869",
+        "c0": "98cdd4ac236a03f06db000a987a4262743957a7c35f8ce382aa432fb14240f0a",
+        "c1": "73ccefbe717b55373beea58d40a5870d09ee3b4a67156871ea69decf544d2903",
+        "s0": "0d7eb0042ca421008f1dfb30776bc93d4bc3b022a9e980d4f68509f64df78b09",
+        "s1": "6b61db33a7f71e867ac6deaafcd97b6caf66f241fbc6e78ba8bbf1668c76ef04"
+      },
+      "received_at": "2026-11-20T06:52:48.828Z",
+      "ballot_hash": "251cc73b58d9abcf9c35949022f2493f57d455aed07b927e3d04952baa7053e4"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "491ff7c39275f9de9d73ead51d4654e0",
+      "ciphertext": {
+        "alpha": "a2ec612bacf7782392e9f03b3703bd907d3b12219e18c383fe5f7ec7cb0f7b14",
+        "beta": "102a946dc7bdb93030df35648cdc5a372e251e4892f4fbb6ab92e7e0b3dbdf2b"
+      },
+      "proof": {
+        "A0": "32493d29790822ffcf1f59e0f67f4ceaa28923312a2ab05faf6ff74caba2474f",
+        "B0": "ea897ad2d17b733e09904575eee4d6dca1cd18431494d5bcbb1b1d89fcb8ec03",
+        "A1": "80ce37ca441458cd384737859bd7281163885f0e9f22f509dae15372a9c00d3c",
+        "B1": "6e8b6105fb0e6ce83eb0aa32749b8c79f73f9c91ec1110a983c911531c8ec251",
+        "c0": "5756decd6c5f8ab2b64b8eaa99248098439f414c0ccb5ec294a8724b5674110b",
+        "c1": "54d2e17085aedbeb3427627223be7a3d447230e57683023f77b5ffa488970b01",
+        "s0": "f40dd05c02c95d6fed7333468d695b5744186d74663ead7d565835bbada9aa0a",
+        "s1": "f582b8a4bb1fff1000ecfdba42cce90e4ba3fb40be0371abb40ce0e136e62603"
+      },
+      "received_at": "2026-11-20T06:52:48.858Z",
+      "ballot_hash": "edafa4901956bdee4895370d0e75f751ba05d1a5b5e8018476fc6ffb27fe8006"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "53b718d305f8d3c2a3103fa8ea632585",
+      "ciphertext": {
+        "alpha": "26e0b49ef8ed12aa66cb9a07457d8eec94f8c67f33d2124cb50a19458543a000",
+        "beta": "047c10f3a4d2fc029fded0cb9fdb1c8abafc12a19ba3c448e682bbd3e64a0722"
+      },
+      "proof": {
+        "A0": "664bf2692abcd78b948436c528a4eb60228e9a39afcff1dd1670d46ebc05085e",
+        "B0": "3a4a53a81e670087e00bba78a25ca5361cbac892a82af01769ee6df9b6251e7c",
+        "A1": "822d970d8b097775967dd9d8f2698b5d0d539765c957438b42cb32b4c5513304",
+        "B1": "a43d8529ec7ce81f473f9db9ee86425cc61be8bdc3748a56a38b74b5c5c25860",
+        "c0": "d55718ca3eeed8fa14c63acdd91a36dcd6fd055c209e8edcc2d154f18254cb01",
+        "c1": "1dbfb63a751939cdc0663f3f947034bfe689677c2dd25f555d1373e9a223a703",
+        "s0": "ecdfd23c5c2c49a557c49b3349f9c8ed32d4d5c1253fc52668bf32a2ea40e30e",
+        "s1": "350386cc2ab9837b80275c1c23ff932ed6a280006b6affd905c610a941d76c05"
+      },
+      "received_at": "2026-11-20T06:52:48.890Z",
+      "ballot_hash": "21e9f6653f43d4c066574b06527542c1ccbd0d5dab75a7bf1ce9a57aec09f94d"
+    },
+    {
+      "version": "v1",
+      "election_id": "a1d54e83d7233f32d0085f29bd87a9bf",
+      "token_id": "fb37ceb1251905c280df26ddfd205d77",
+      "ciphertext": {
+        "alpha": "d4d710b3655b2595f90e0fe6ce1cfccdfac763317865e65e8b8f610cd498da67",
+        "beta": "3acd7a2f309fc63442fb37681da9ed519cd5b54c39f8d91f20d4bfdeb2fc331b"
+      },
+      "proof": {
+        "A0": "52a43feeb28f53a369608cbc37a95f268ca7b0ccf0da76c34161b187f9686b01",
+        "B0": "d05006df20de9a22355070171105beed5b59e7c023d86ad5038471107685861e",
+        "A1": "4e372df85b632f7f842a9891026adf507d417633b2f1cbf0583adf7e7c9bd159",
+        "B1": "b059fd6c680258047cdb8c060d98db1fa262097bb250621e1e687b60fea02a33",
+        "c0": "12cf5f671300756ac749e106193072486432a65ddb6b9cf6abf4f27be9d5cf00",
+        "c1": "11c15900e3dc95b98d94dec98c65a4ecc26c5c763c552dab3f89715172d63007",
+        "s0": "2193c9e4ad82e6a9bc0bdad5c81e54365da3759fd84b55eadc5ad9305de82c05",
+        "s1": "d7305879757da20a6e4b25a2a7cf49ac38646e1b413f92995b5dfff4ab0ffa08"
+      },
+      "received_at": "2026-11-20T06:52:48.954Z",
+      "ballot_hash": "0c890b14510322b5df94522c6b0d2cc174614b05f1c88508c63bc6dec2ad4f96"
+    }
+  ],
+  "aggregate": {
+    "alpha": "5e67ea79e4a13dcbcb2b09b67df519bb6759386949018e7874630e3ab67d922f",
+    "beta": "b0ef019417923e7e458721ddb8a906e0e2949e7b31df4d5fc3286a442b986a06"
+  },
+  "declared_result": {
+    "yes": 13,
+    "no": 7,
+    "n_ballots": 20
+  },
+  "closing": {
+    "closed_at": "2026-11-20T06:52:48.972Z",
+    "software_version": "0.1.0"
+  },
+  "signature": "ee6295b25efd6a912957ab039701271f78eb02511f426eed4c086ddd52d08271635987703e99cf20eef5bbd76fc8af0dadb7df2c97775a43d5779d38f728e200"
+}

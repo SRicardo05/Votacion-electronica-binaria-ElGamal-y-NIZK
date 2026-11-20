@@ -1,0 +1,38 @@
+== 1. Urna escuchando en http://127.0.0.1:61867
+== 2. Elección a1d54e83d7233f32d0085f29bd87a9bf creada. Huella de parámetros: 84c4be8039a0d77b07efbf671fa448bc566f63ee6236dd4ed43ada0217d0ca07
+   20 tokens emitidos, uno por votante
+== 3. Votación: 13 sí / 7 no (cada voto se cifra y prueba en el cliente)
+   19 votos aceptados. Recibo del votante 1: 833ba06740637dcdd31e96c414b6c072d504d697aeb0b0ef0db277e7d1b8da9f
+== 4. Intentos maliciosos
+   credencial con MAC falsificado                 → HTTP 403, paso U2, E_TOKEN_MAC
+   prueba OR con los retos intercambiados         → HTTP 422, paso U3, E_PROOF_EQ_0
+   el votante 20 vota con éxito: los intentos rechazados no consumieron su token
+   votar dos veces con el mismo token             → HTTP 409, paso U2, E_TOKEN_USED
+== 5. Elección cerrada. Expediente guardado en docs/ejemplo/expediente.json
+
+═══ A. VERIFICADO CRIPTOGRÁFICAMENTE ═══
+  [OK] A1 El expediente cumple el esquema v1
+  [OK] A2 Versión y suite criptográfica esperadas
+  [OK] A3 Parámetros públicos coherentes (generador estándar, clave pública válida)
+  [OK] A4 Firma Ed25519 de la autoridad válida sobre el expediente
+  [OK] A5 Tokens: sin repetidos, consumidos ⊆ emitidos, emitidos ≤ n_max_voters
+  [OK] A6 Ballots íntegros: hash, elección, token emitido y único, sin duplicados
+  [OK] A7 Cada ballot tiene una prueba OR válida (cifra 0 o 1)
+  [OK] A8 Agregado recalculado = agregado publicado
+  [OK] A9 n_ballots declarado = ballots publicados ≤ n_max_voters
+  Ballots publicados: 20
+  Agregado recalculado por el verificador:
+    α = 5e67ea79e4a13dcbcb2b09b67df519bb6759386949018e7874630e3ab67d922f
+    β = b0ef019417923e7e458721ddb8a906e0e2949e7b31df4d5fc3286a442b986a06
+
+═══ B. DECLARADO POR LA AUTORIDAD (NO VERIFICADO CRIPTOGRÁFICAMENTE) ═══
+  Resultado anunciado: sí = 13, no = 7, total = 20
+  Consistencia trivial (0 ≤ sí ≤ total, sí + no = total): OK
+  * Sin prueba de descifrado (Chaum–Pedersen sobre (G, H, A, B − k·G)), el verificador no puede confirmar que el resultado anunciado corresponde al agregado. La confianza en el descifrado recae en la autoridad.
+  * La elegibilidad no es verificable públicamente: la autoridad emite los tokens y conoce la clave HMAC, así que podría votar con tokens sobrantes sin que este verificador lo detecte.
+
+Recibo 833ba06740637dcdd31e96c414b6c072d504d697aeb0b0ef0db277e7d1b8da9f: INCLUIDO en el expediente
+
+RESULTADO: expediente consistente
+
+Resultado esperado 13/7, anunciado 13/7: coinciden

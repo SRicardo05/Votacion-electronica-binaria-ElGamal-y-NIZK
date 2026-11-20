@@ -5,7 +5,9 @@ Prototipo de votación de aula (una pregunta sí/no, máximo 20 votantes, una au
 + Fiat–Shamir) de que contienen 0 o 1, y se suman homomórficamente sin descifrar cada voto. Tokens de un solo uso
 controlan quién vota y un expediente público permite auditar lo que aceptó la urna.
 
-El diseño detallado y las fases están en [`PLAN_IMPLEMENTACION.md`](PLAN_IMPLEMENTACION.md).
+El diseño detallado y las fases están en [`PLAN_IMPLEMENTACION.md`](PLAN_IMPLEMENTACION.md). El material para el
+informe de la Entrega 2 (prueba OR completa, garantías del verificador, suite fija, casos negativos con su paso de
+rechazo, expediente de ejemplo y métricas) está en [`docs/ENTREGA2.md`](docs/ENTREGA2.md).
 
 ## Requisitos
 
@@ -104,7 +106,7 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 - [x] Fase 6 — Cierre con escrutinio del agregado, expediente firmado (Ed25519) y verificador independiente
 - [x] Fase 7 — CLI de votación (con fijación de huella de parámetros) y demo de extremo a extremo
 - [x] Fase 8 — Métricas para 1, 5, 10 y 20 votos (`npm run bench`, 30 elecciones por tamaño, mediana y p95)
-- [ ] Fase 9 — informe de la Entrega 2
+- [x] Fase 9 — Material del informe de la Entrega 2 (`docs/ENTREGA2.md`) y expediente de ejemplo (`docs/ejemplo/`)
 
 ## Limitaciones declaradas
 
