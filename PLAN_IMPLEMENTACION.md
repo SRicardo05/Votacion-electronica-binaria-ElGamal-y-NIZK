@@ -270,6 +270,22 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 - `tally.ts`, `record.ts` (JCS + firma), `verifier/`.
 - Pruebas positivas: todos 0, todos 1, mezcla conocida (p. ej. 13 sí / 7 no); el verificador reproduce el agregado.
 - Pruebas de manipulación del expediente: borrar un ballot, cambiar un `β`, alterar `declared_result`, cambiar la firma, duplicar un ballot. El verificador debe reportar la falla concreta en la sección A, o en B si se altera el resultado *y se re-firma* (eso demuestra la limitación de la corrección 2).
+- *Implementado:* mensaje firmado `m = "VOTE-BIN-v1/election-record" || SHA-256(JCS(expediente sin "signature"))`. El cierre es una sola transacción (si el descifrado falla, la elección sigue abierta) y el expediente se guarda inmutable (tabla `records` con triggers). Comprobaciones del verificador y qué manipulación detecta cada una (con re-firma de la autoridad):
+
+  | Comprobación | Qué verifica | Manipulación que la hace fallar |
+  |---|---|---|
+  | A1 | Esquema v1 estricto | campo faltante/extra, valores negativos |
+  | A2 | Versión y suite | `version` distinta |
+  | A3 | Generador estándar, clave pública válida | generador cambiado |
+  | A4 | Firma Ed25519 | cualquier cambio sin re-firmar; firma con otra clave |
+  | A5 | Tokens únicos, consumidos ⊆ emitidos, emitidos ≤ n_max | token consumido no emitido; tokens de más |
+  | A6 | `ballot_hash`, elección, token emitido y único, sin duplicados, consumidos = tokens de los ballots | borrar o duplicar un ballot; cambiar β sin rehacer el hash |
+  | A7 | Prueba OR de cada ballot | cambiar el voto de un ballot aunque se rehaga su hash (V3) |
+  | A8 | Agregado recalculado = publicado | borrar/duplicar/cambiar un ballot; agregado falso |
+  | A9 | `n_ballots` = ballots publicados ≤ n_max | `n_ballots` falso |
+  | B | 0 ≤ sí ≤ total y sí + no = total | resultado incoherente |
+
+  Pruebas que **documentan lo no detectable**: resultado anunciado falso pero consistente (7/13 en vez de 13/7) y votos de relleno con tokens sobrantes; en ambos el verificador reporta `ok`.
 
 ### Fase 7: Cliente CLI y demo de extremo a extremo
 - `voterCli.ts` (construye el ballot localmente; nunca recibe claves de la autoridad).

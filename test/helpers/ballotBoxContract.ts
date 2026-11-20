@@ -27,6 +27,7 @@ import {
   type ElectionRepository,
   type Outcome,
   type Receipt,
+  type RecordRepository,
   RejectCode,
   type RejectionLog,
   type TokenRepository,
@@ -39,6 +40,7 @@ export interface Repos {
   readonly elections: ElectionRepository;
   readonly tokens: TokenRepository;
   readonly ballots: BallotRepository;
+  readonly records: RecordRepository;
   readonly rejections: RejectionLog;
   readonly transactions: TransactionRunner;
 }

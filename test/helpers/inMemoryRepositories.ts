@@ -8,13 +8,14 @@ import type {
   ElectionRecord,
   ElectionRepository,
   InsertBallotResult,
+  RecordRepository,
   Rejection,
   RejectionLog,
   TokenRecord,
   TokenRepository,
   TransactionRunner,
 } from '../../src/protocol/index.js';
-import type { ElectionParams, StoredBallot } from '../../src/schema/index.js';
+import type { AuditRecord, ElectionParams, StoredBallot } from '../../src/schema/index.js';
 
 /** Repositorio cuyo estado se puede copiar y restaurar (para simular rollback). */
 interface Snapshottable {
@@ -137,6 +138,31 @@ export class InMemoryBallotRepository implements BallotRepository, Snapshottable
   }
 }
 
+export class InMemoryRecordRepository implements RecordRepository, Snapshottable {
+  records = new Map<string, AuditRecord>();
+
+  constructor(private readonly elections: InMemoryElectionRepository) {}
+
+  save(record: AuditRecord): void {
+    const id = record.params.election_id;
+    if (this.elections.find(id)?.state !== 'closed') throw new Error('E_NOT_CLOSED');
+    if (this.records.has(id)) throw new Error('expediente ya publicado');
+    this.records.set(id, record);
+  }
+
+  find(electionId: string): AuditRecord | undefined {
+    return this.records.get(electionId);
+  }
+
+  snapshot(): unknown {
+    return new Map(this.records);
+  }
+
+  restore(state: unknown): void {
+    this.records = state as Map<string, AuditRecord>;
+  }
+}
+
 export class InMemoryRejectionLog implements RejectionLog {
   entries: { electionId: string | null; rejection: Rejection; at: string }[] = [];
 
@@ -166,12 +192,14 @@ export function createInMemoryRepositories() {
   const elections = new InMemoryElectionRepository();
   const tokens = new InMemoryTokenRepository();
   const ballots = new InMemoryBallotRepository();
+  const records = new InMemoryRecordRepository(elections);
   const rejections = new InMemoryRejectionLog();
   return {
     elections,
     tokens,
     ballots,
+    records,
     rejections,
-    transactions: new InMemoryTransactionRunner([elections, tokens, ballots]),
+    transactions: new InMemoryTransactionRunner([elections, tokens, ballots, records]),
   };
 }

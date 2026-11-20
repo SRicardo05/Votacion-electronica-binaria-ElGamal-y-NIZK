@@ -20,7 +20,14 @@ npm test             # solo pruebas (Jest)
 npm run test:coverage
 npm run build        # compila a dist/
 npm start            # urna + administración en http://127.0.0.1:3000
+npm run verify -- expediente.json [--ballot-hash <recibo>] [--json]   # verificador independiente
 ```
+
+El verificador trabaja solo sobre el archivo del expediente (sin red ni base de datos). Sale con código 0 si todo lo
+verificable pasa, 1 si algo falla y 2 si el uso es incorrecto. Su reporte separa **A. Verificado criptográficamente**
+(A1 esquema, A2 suite, A3 parámetros, A4 firma, A5 tokens, A6 integridad de ballots, A7 pruebas OR, A8 agregado
+recalculado, A9 conteo) de **B. Declarado por la autoridad** (resultado sí/no, sin prueba de descifrado).
+Con `--ballot-hash` un votante comprueba que su recibo está incluido.
 
 Variables de `npm start`: `PORT` (3000), `HOST` (127.0.0.1), `DB_PATH` (`data/urna.db`) y `ADMIN_API_KEY`
 (≥ 16 caracteres; si falta se genera una y se muestra al arrancar).
@@ -31,9 +38,11 @@ Variables de `npm start`: `PORT` (3000), `HOST` (127.0.0.1), `DB_PATH` (`data/ur
 |---|---|---|---|
 | POST | `/admin/elections` `{question, n_max_voters}` | admin | parámetros públicos |
 | POST | `/admin/elections/:id/tokens` `{count}` | admin | credenciales `<token_id>.<mac>` |
+| POST | `/admin/elections/:id/close` | admin | cierra, escruta y devuelve el expediente firmado |
 | GET | `/elections/:id/params` | público | parámetros públicos |
 | GET | `/elections/:id/status` | público | conteos (sin ballots individuales) |
 | POST | `/elections/:id/ballots` | público (con credencial) | `201 {accepted, ballot_hash, …}` o `{accepted: false, step, code}` |
+| GET | `/elections/:id/record` | público | expediente firmado (409 `E_NOT_CLOSED` antes del cierre) |
 
 Las rutas `admin` exigen `Authorization: Bearer <ADMIN_API_KEY>`. Estados HTTP de rechazo: 400 (U0 formato/versión),
 403 (token inválido), 404 (elección inexistente), 409 (token usado, duplicado, elección cerrada), 422 (U1 codificación,
@@ -80,7 +89,8 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 - [x] Fase 3 — Prueba OR CDS + Fiat–Shamir, con vectores deterministas (`npm run vectors`) y casos negativos por paso V1–V5
 - [x] Fase 4 — Tokens HMAC de un solo uso y persistencia SQLite (consumo atómico, triggers, migraciones)
 - [x] Fase 5 — Urna (pasos U0–U5), elecciones y API Express
-- [ ] Fases 6–9 — cierre y expediente, verificador, CLI, métricas, informe
+- [x] Fase 6 — Cierre con escrutinio del agregado, expediente firmado (Ed25519) y verificador independiente
+- [ ] Fases 7–9 — CLI de votación y demo, métricas, informe
 
 ## Limitaciones declaradas
 

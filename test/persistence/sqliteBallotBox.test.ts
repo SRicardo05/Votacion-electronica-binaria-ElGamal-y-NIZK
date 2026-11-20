@@ -2,6 +2,7 @@ import { buildBallot } from '../../src/client/ballotBuilder.js';
 import { ElectionService } from '../../src/protocol/index.js';
 import { createSqliteRepositories, openDatabase } from '../../src/persistence/index.js';
 import { describeBallotBox } from '../helpers/ballotBoxContract.js';
+import { describeClosing } from '../helpers/closingContract.js';
 
 describeBallotBox('SQLite', () => {
   const db = openDatabase(':memory:');
@@ -89,6 +90,33 @@ describe('restricciones SQLite de elecciones y ballots', () => {
     expect(secrets).toBeDefined();
     expect(row.params_json).not.toContain(secrets?.secretKey);
     expect(row.params_json).not.toContain(secrets?.macKey);
+    db.close();
+  });
+});
+
+describeClosing('SQLite', () => {
+  const db = openDatabase(':memory:');
+  const repos = createSqliteRepositories(db);
+  return {
+    repos,
+    rejectionsLogged: () => repos.rejections.list().map(({ step, code }) => ({ step, code })),
+    close: () => db.close(),
+  };
+});
+
+describe('restricciones SQLite del expediente', () => {
+  it('el expediente es inmutable y solo se guarda con la elección cerrada', () => {
+    const db = openDatabase(':memory:');
+    const repos = createSqliteRepositories(db);
+    const service = new ElectionService(repos);
+    const params = service.create({ question: '¿?', nMaxVoters: 2 });
+    const record = service.close(params.election_id);
+    expect(() => db.prepare("UPDATE records SET record_json = '{}'").run()).toThrow(/no se puede modificar/);
+    expect(() => db.prepare('DELETE FROM records').run()).toThrow(/no se puede borrar/);
+
+    const open = service.create({ question: '¿?', nMaxVoters: 2 });
+    const fake = { ...record, params: open };
+    expect(() => { repos.records.save(fake); }).toThrow(/E_NOT_CLOSED/);
     db.close();
   });
 });

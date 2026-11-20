@@ -4,9 +4,11 @@
  *
  *   POST /admin/elections                 (admin)  crear elección → parámetros públicos
  *   POST /admin/elections/:id/tokens      (admin)  emitir tokens → credenciales
+ *   POST /admin/elections/:id/close       (admin)  cerrar, escrutar y publicar el expediente firmado
  *   GET  /elections/:id/params                     parámetros públicos
  *   GET  /elections/:id/status                     conteos (sin ballots individuales)
  *   POST /elections/:id/ballots                    enviar ballot → recibo
+ *   GET  /elections/:id/record                     expediente firmado (tras el cierre)
  */
 import express, { type NextFunction, type Request, type Response } from 'express';
 import { z } from 'zod';
@@ -34,6 +36,7 @@ export function httpStatusFor(code: string): number {
     case RejectCode.ELECTION:
       return 404;
     case RejectCode.CLOSED:
+    case AdminErrorCode.NOT_CLOSED:
     case RejectCode.TOKEN_USED:
     case RejectCode.REPLAY:
     case RejectCode.DUP_CIPHERTEXT:
@@ -117,7 +120,23 @@ export function createApp(deps: AppDeps): express.Express {
     }
   });
 
+  app.post('/admin/elections/:id/close', admin, (req, res) => {
+    try {
+      res.status(200).json(deps.elections.close(electionIdParam(req)));
+    } catch (e) {
+      sendAdminError(res, e);
+    }
+  });
+
   // ── Público ──
+  app.get('/elections/:id/record', (req, res) => {
+    try {
+      res.json(deps.elections.getRecord(electionIdParam(req)));
+    } catch (e) {
+      sendAdminError(res, e);
+    }
+  });
+
   app.get('/elections/:id/params', (req, res) => {
     const params = deps.elections.getParams(electionIdParam(req));
     if (params === undefined) {

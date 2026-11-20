@@ -1,6 +1,6 @@
 /**
  * Operaciones de la autoridad electoral: crear la elección (claves + parámetros públicos),
- * emitir tokens y consultar el estado. El cierre y el escrutinio llegan en la fase 6.
+ * emitir tokens, consultar el estado y cerrar (escrutinio + expediente firmado).
  */
 import { randomBytes } from 'node:crypto';
 
@@ -16,7 +16,7 @@ import {
   generateSigningKeyPair,
   strictHexToBytes,
 } from '../crypto/index.js';
-import { type ElectionParams, ElectionParamsSchema, MAX_VOTERS, OPTIONS } from '../schema/index.js';
+import { type AuditRecord, type ElectionParams, ElectionParamsSchema, MAX_VOTERS, OPTIONS } from '../schema/index.js';
 import { AdminError, AdminErrorCode } from './errors.js';
 import {
   type BallotRepository,
@@ -24,16 +24,19 @@ import {
   type ElectionRecord,
   type ElectionRepository,
   type ElectionState,
+  type RecordRepository,
   type TokenRepository,
   type TransactionRunner,
   systemClock,
 } from './ports.js';
+import { tallyAndSign } from './tally.js';
 import { TokenService } from './tokens.js';
 
 export interface ElectionServiceDeps {
   readonly elections: ElectionRepository;
   readonly tokens: TokenRepository;
   readonly ballots: BallotRepository;
+  readonly records: RecordRepository;
   readonly transactions: TransactionRunner;
   readonly clock?: Clock;
 }
@@ -141,6 +144,43 @@ export class ElectionService {
       n_tokens_consumed: tokens.filter((t) => t.consumedAt !== null).length,
       n_ballots: this.deps.ballots.count(electionId),
     };
+  }
+
+  /**
+   * Cierra la elección de forma irreversible: marca el cierre, agrega y descifra SOLO el total,
+   * construye el expediente y lo firma. Todo en una transacción: si el descifrado falla
+   * (E_TALLY_OUT_OF_RANGE), la elección sigue abierta y no se publica nada.
+   */
+  close(electionId: string): AuditRecord {
+    return this.deps.transactions.runInTransaction(() => {
+      const election = this.requireOpen(electionId);
+      const secrets = this.deps.elections.findSecrets(electionId);
+      if (secrets === undefined) throw new Error(`secretos de la elección ${electionId} ausentes`);
+
+      const closedAt = this.clock().toISOString();
+      if (!this.deps.elections.markClosed(electionId, closedAt)) {
+        throw new AdminError(AdminErrorCode.CLOSED, 'la elección ya estaba cerrada');
+      }
+      const record = tallyAndSign({
+        params: election.params,
+        secrets,
+        ballots: this.deps.ballots.listByElection(electionId),
+        tokens: this.deps.tokens.listByElection(electionId),
+        closedAt,
+      });
+      this.deps.records.save(record);
+      return record;
+    });
+  }
+
+  /** Expediente publicado (solo existe tras el cierre). */
+  getRecord(electionId: string): AuditRecord {
+    const election = this.requireExisting(electionId);
+    const record = this.deps.records.find(electionId);
+    if (election.state !== 'closed' || record === undefined) {
+      throw new AdminError(AdminErrorCode.NOT_CLOSED, 'el expediente se publica al cerrar la elección');
+    }
+    return record;
   }
 
   private tokenService(electionId: string): TokenService {

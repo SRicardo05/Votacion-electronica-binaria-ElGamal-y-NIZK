@@ -15,7 +15,8 @@
     "test:coverage": "npm test -- --coverage",
     "check": "npm run typecheck && npm run lint && npm test",
     "vectors": "tsx scripts/generate-or-proof-vectors.ts",
-    "start": "tsx src/api/server.ts"
+    "start": "tsx src/api/server.ts",
+    "verify": "tsx src/verifier/cli.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",

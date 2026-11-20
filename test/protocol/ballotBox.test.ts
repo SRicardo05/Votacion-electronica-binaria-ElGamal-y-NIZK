@@ -1,6 +1,7 @@
 import { buildBallot } from '../../src/client/ballotBuilder.js';
 import { BallotBox, ElectionService, RejectCode } from '../../src/protocol/index.js';
 import { describeBallotBox, expectRejection } from '../helpers/ballotBoxContract.js';
+import { describeClosing } from '../helpers/closingContract.js';
 import { createInMemoryRepositories } from '../helpers/inMemoryRepositories.js';
 
 describeBallotBox('memoria', () => {
@@ -51,4 +52,9 @@ describe('U5 — atomicidad (solo con dobles en memoria: simula carreras)', () =
     expectRejection(box.submit(params.election_id, buildBallot(params, c0, 1)), 'U5', RejectCode.CLOSED);
     expect(repos.tokens.find(params.election_id, c0.split('.')[0] ?? '')?.consumedAt).toBeNull();
   });
+});
+
+describeClosing('memoria', () => {
+  const repos = createInMemoryRepositories();
+  return { repos, rejectionsLogged: () => repos.rejections.entries.map((e) => ({ ...e.rejection })) };
 });

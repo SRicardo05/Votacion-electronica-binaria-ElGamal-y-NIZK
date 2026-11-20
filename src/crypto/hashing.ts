@@ -12,6 +12,10 @@ export function hashToScalar(bytes: Uint8Array): Scalar {
   return toScalar(bytesToBigIntLE(sha512(bytes)));
 }
 
+export function sha256Bytes(bytes: Uint8Array): Uint8Array {
+  return sha256(bytes);
+}
+
 /** SHA-256 en hex (hash de ballots y del expediente). */
 export function sha256Hex(bytes: Uint8Array): string {
   return bytesToHex(sha256(bytes));

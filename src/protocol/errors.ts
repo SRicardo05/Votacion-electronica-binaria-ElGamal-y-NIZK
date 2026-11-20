@@ -46,6 +46,7 @@ export const reject = <T = never>(step: BallotBoxStep, code: string, reason: str
 export const AdminErrorCode = {
   ELECTION: 'E_ELECTION',
   CLOSED: 'E_CLOSED',
+  NOT_CLOSED: 'E_NOT_CLOSED',
   TOKEN_LIMIT: 'E_TOKEN_LIMIT',
   INVALID_INPUT: 'E_INVALID_INPUT',
 } as const;

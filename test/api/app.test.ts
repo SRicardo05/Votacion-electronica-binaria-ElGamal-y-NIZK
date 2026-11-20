@@ -5,6 +5,7 @@ import { buildBallot } from '../../src/client/ballotBuilder.js';
 import { createSqliteRepositories, openDatabase, type Db } from '../../src/persistence/index.js';
 import { BallotBox, ElectionService } from '../../src/protocol/index.js';
 import type { ElectionParams } from '../../src/schema/index.js';
+import { verifyRecord } from '../../src/verifier/index.js';
 
 const ADMIN_KEY = 'clave-admin-de-pruebas-123';
 const auth = { Authorization: `Bearer ${ADMIN_KEY}` };
@@ -170,6 +171,46 @@ describe('API HTTP', () => {
     it('la respuesta de rechazo no incluye el motivo interno', async () => {
       const res = await post({ ...buildBallot(params, creds[0] ?? '', 1), version: 'v2' });
       expect(Object.keys(res.body as object).sort()).toEqual(['accepted', 'code', 'step']);
+    });
+  });
+
+  describe('cierre y expediente', () => {
+    it('el expediente no existe antes del cierre (409) y la elección inexistente da 404', async () => {
+      const params = await createElection();
+      const res = await request(app).get(`/elections/${params.election_id}/record`);
+      expect(res.status).toBe(409);
+      expect(res.body).toEqual(expect.objectContaining({ error: 'E_NOT_CLOSED' }));
+      expect((await request(app).get(`/elections/${'2'.repeat(32)}/record`)).status).toBe(404);
+    });
+
+    it('cerrar requiere admin', async () => {
+      const params = await createElection();
+      expect((await request(app).post(`/admin/elections/${params.election_id}/close`)).status).toBe(401);
+    });
+
+    it('votar → cerrar → descargar el expediente → el verificador lo acepta', async () => {
+      const params = await createElection();
+      const creds = await issue(params.election_id, 3);
+      for (const [i, v] of ([1, 1, 0] as const).entries()) {
+        const res = await request(app).post(`/elections/${params.election_id}/ballots`).send(buildBallot(params, creds[i] ?? '', v));
+        expect(res.status).toBe(201);
+      }
+      const closed = await request(app).post(`/admin/elections/${params.election_id}/close`).set(auth);
+      expect(closed.status).toBe(200);
+
+      const published = await request(app).get(`/elections/${params.election_id}/record`);
+      expect(published.status).toBe(200);
+      expect(published.body).toEqual(closed.body);
+
+      const report = verifyRecord(published.body);
+      expect(report.ok).toBe(true);
+      expect(report.declared.result).toEqual({ yes: 2, no: 1, n_ballots: 3 });
+
+      // Después del cierre: votar → 409 E_CLOSED; cerrar otra vez → 409.
+      const late = await request(app).post(`/elections/${params.election_id}/ballots`).send(buildBallot(params, creds[0] ?? '', 1));
+      expect(late.status).toBe(409);
+      expect(late.body).toEqual({ accepted: false, step: 'U0', code: 'E_CLOSED' });
+      expect((await request(app).post(`/admin/elections/${params.election_id}/close`).set(auth)).status).toBe(409);
     });
   });
 

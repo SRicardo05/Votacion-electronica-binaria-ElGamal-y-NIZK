@@ -3,7 +3,7 @@
  * La capa `persistence/` los implementa con SQLite; las pruebas usan implementaciones en memoria.
  * El protocolo nunca importa una base de datos concreta.
  */
-import type { ElectionParams, StoredBallot } from '../schema/index.js';
+import type { AuditRecord, ElectionParams, StoredBallot } from '../schema/index.js';
 import type { Rejection } from './errors.js';
 
 // ─────────────────────────────── Tokens ───────────────────────────────
@@ -76,6 +76,14 @@ export interface BallotRepository {
   count(electionId: string): number;
   /** En orden de recepción. */
   listByElection(electionId: string): StoredBallot[];
+}
+
+// ───────────────────────────── Expedientes ─────────────────────────────
+
+/** Guarda el expediente firmado al cerrar (inmutable: se publica tal cual, siempre con la misma firma). */
+export interface RecordRepository {
+  save(record: AuditRecord): void;
+  find(electionId: string): AuditRecord | undefined;
 }
 
 // ─────────────────────────── Registro de rechazos ───────────────────────────

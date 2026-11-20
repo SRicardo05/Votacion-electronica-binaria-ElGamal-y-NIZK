@@ -2,3 +2,4 @@
 export * from './canonical.js';
 export * from './params.js';
 export * from './ballot.js';
+export * from './record.js';

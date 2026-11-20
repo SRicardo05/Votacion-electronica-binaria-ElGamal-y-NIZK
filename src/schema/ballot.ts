@@ -54,6 +54,17 @@ export interface StoredBallot extends BallotCore {
   readonly ballot_hash: string;
 }
 
+/** Ballot tal como aparece publicado en el expediente. */
+export const StoredBallotSchema = z.strictObject({
+  version: z.string().max(16),
+  election_id: z.string().max(64),
+  token_id: z.string().max(64),
+  ciphertext: CiphertextSchema,
+  proof: OrProofSchema,
+  received_at: z.string().max(64),
+  ballot_hash: z.string().max(64),
+});
+
 export function computeBallotHash(core: BallotCore): string {
   const { version, election_id, token_id, ciphertext, proof } = core;
   return sha256Hex(canonicalBytes({ version, election_id, token_id, ciphertext, proof }));

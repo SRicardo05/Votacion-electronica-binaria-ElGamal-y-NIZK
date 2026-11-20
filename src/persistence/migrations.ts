@@ -121,4 +121,31 @@ export const MIGRATIONS: readonly string[] = [
     at          TEXT NOT NULL
   ) STRICT;
   `,
+
+  // 3 — Expediente firmado (uno por elección, solo con la elección cerrada, inmutable).
+  `
+  CREATE TABLE records (
+    election_id TEXT PRIMARY KEY REFERENCES elections (election_id),
+    record_json TEXT NOT NULL
+  ) STRICT;
+
+  CREATE TRIGGER records_require_closed
+  BEFORE INSERT ON records
+  WHEN (SELECT state FROM elections WHERE election_id = NEW.election_id) IS NOT 'closed'
+  BEGIN
+    SELECT RAISE(ABORT, 'E_NOT_CLOSED: el expediente solo se publica con la elección cerrada');
+  END;
+
+  CREATE TRIGGER records_no_update
+  BEFORE UPDATE ON records
+  BEGIN
+    SELECT RAISE(ABORT, 'el expediente publicado no se puede modificar');
+  END;
+
+  CREATE TRIGGER records_no_delete
+  BEFORE DELETE ON records
+  BEGIN
+    SELECT RAISE(ABORT, 'el expediente publicado no se puede borrar');
+  END;
+  `,
 ];
