@@ -13,14 +13,17 @@
     "lint": "eslint .",
     "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js",
     "test:coverage": "npm test -- --coverage",
-    "check": "npm run typecheck && npm run lint && npm test"
+    "check": "npm run typecheck && npm run lint && npm test",
+    "vectors": "tsx scripts/generate-or-proof-vectors.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",
-    "@noble/hashes": "2.4.0"
+    "@noble/hashes": "2.4.0",
+    "better-sqlite3": "13.2.0"
   },
   "devDependencies": {
     "@eslint/js": "9.39.5",
+    "@types/better-sqlite3": "9.6.0",
     "@types/jest": "30.0.0",
     "@types/node": "24.19.2",
     "eslint": "9.39.5",

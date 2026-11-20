@@ -58,11 +58,17 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 ## Estado
 
 - [x] Fase 1 — Esqueleto, suite fija, grupo Ristretto255 y reglas de rechazo de elementos (§0.1 del plan)
-- [ ] Fase 2 — ElGamal exponencial
-- [ ] Fase 3 — Prueba OR CDS + Fiat–Shamir
-- [ ] Fases 4–9 — tokens, urna, API, expediente, verificador, CLI, métricas, informe
+- [x] Fase 2 — ElGamal exponencial (cifrado de votos, agregación homomórfica, descifrado acotado)
+- [x] Fase 3 — Prueba OR CDS + Fiat–Shamir, con vectores deterministas (`npm run vectors`) y casos negativos por paso V1–V5
+- [x] Fase 4 — Tokens HMAC de un solo uso y persistencia SQLite (consumo atómico, triggers, migraciones)
+- [ ] Fases 5–9 — urna, API, expediente, verificador, CLI, métricas, informe
 
 ## Limitaciones declaradas
 
-Sin prueba de descifrado (el verificador no confirma criptográficamente el resultado anunciado), autoridad única
-(sin umbral), sin anonimato de red ni resistencia a coerción. Ver §5.3 del plan.
+- **Sin prueba de descifrado:** el verificador no confirma criptográficamente el resultado anunciado.
+- **Elegibilidad no verificable públicamente:** la autoridad emite los tokens y conoce la clave HMAC, así que podría
+  votar con tokens sobrantes (votos de relleno) sin que el verificador lo detecte. Cada votante sí puede comprobar que su
+  propio ballot aparece en el expediente.
+- Autoridad única (sin umbral), sin anonimato de red ni resistencia a coerción.
+
+Ver §3 y §5.3 del plan.

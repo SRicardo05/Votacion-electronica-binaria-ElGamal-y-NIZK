@@ -9,6 +9,8 @@ export const CryptoErrorCode = {
   IDENTITY: 'E_IDENTITY',
   /** Escalar: longitud/hex inválido o valor ≥ q (no canónico). */
   SCALAR_RANGE: 'E_SCALAR_RANGE',
+  /** El texto plano descifrado no está en el rango acotado [0, máx.] del logaritmo discreto. */
+  TALLY_OUT_OF_RANGE: 'E_TALLY_OUT_OF_RANGE',
 } as const;
 
 export type CryptoErrorCode = (typeof CryptoErrorCode)[keyof typeof CryptoErrorCode];
