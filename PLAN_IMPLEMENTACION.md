@@ -291,6 +291,7 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 - `voterCli.ts` (construye el ballot localmente; nunca recibe claves de la autoridad).
 - `npm run demo`: crea la elección, emite 20 tokens, simula votos, cierra, exporta `election_record.json` y ejecuta `verify`.
 - Opcional, si sobra tiempo: una página web mínima servida por Express que use el mismo `src/crypto` empaquetado.
+- *Implementado:* `npm run vote` y `npm run demo` (expediente en `data/demo/expediente.json`). Añadido no previsto: **huella de parámetros** `SHA-256(JCS(params))` que el votante puede fijar con `--params-sha256`; si no coincide, el cliente no envía nada (evita que la urna sustituya la clave pública). La demo usa el token del último votante para dos ataques (MAC falsificado → U2, retos intercambiados → U3) y ese votante después vota con éxito, lo que muestra que un rechazo no consume el token. La página web opcional no se implementó.
 
 ### Fase 8: Métricas (§8.3 del PDF)
 - `bench/metrics.ts` para N = 1, 5, 10, 20 (repetir cada medida ≥ 30 veces y reportar mediana y p95 con `performance.now()`):

@@ -4,7 +4,8 @@
  */
 import { z } from 'zod';
 
-import { PROTOCOL_VERSION, SUITE_ID } from '../crypto/index.js';
+import { PROTOCOL_VERSION, SUITE_ID, sha256Hex } from '../crypto/index.js';
+import { canonicalBytes } from './canonical.js';
 
 /** Máximo de votantes por elección (enunciado del proyecto). */
 export const MAX_VOTERS = 20;
@@ -30,3 +31,12 @@ export const ElectionParamsSchema = z.strictObject({
 });
 
 export type ElectionParams = z.infer<typeof ElectionParamsSchema>;
+
+/**
+ * Huella de los parámetros: SHA-256(JCS(params)) en hex. La autoridad la difunde por un canal
+ * independiente (p. ej. junto con la credencial) y el cliente la compara antes de cifrar, para que
+ * un servidor malicioso no pueda sustituir la clave pública.
+ */
+export function paramsFingerprint(params: ElectionParams): string {
+  return sha256Hex(canonicalBytes(params));
+}

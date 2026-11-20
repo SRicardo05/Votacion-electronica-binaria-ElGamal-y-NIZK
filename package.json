@@ -16,7 +16,9 @@
     "check": "npm run typecheck && npm run lint && npm test",
     "vectors": "tsx scripts/generate-or-proof-vectors.ts",
     "start": "tsx src/api/server.ts",
-    "verify": "tsx src/verifier/cli.ts"
+    "verify": "tsx src/verifier/cli.ts",
+    "vote": "tsx src/client/voterCli.ts",
+    "demo": "tsx scripts/demo.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",
