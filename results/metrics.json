@@ -1,0 +1,119 @@
+{
+  "environment": {
+    "fecha": "2026-11-20T06:48:13.841Z",
+    "node": "v24.11.1",
+    "so": "win32 10.0.26300",
+    "cpu": "Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz (8 hilos)"
+  },
+  "repeats": 30,
+  "results": [
+    {
+      "n": 1,
+      "ballotBinaryBytes": 320,
+      "ballotJsonBytes": 928,
+      "storedBallotJsonBytes": 983,
+      "recordJsonBytes": 2106,
+      "creationMs": {
+        "median": 12.6096,
+        "p95": 14.88319999999976,
+        "samples": 30
+      },
+      "cryptoVerifyMs": {
+        "median": 10.270550000000185,
+        "p95": 12.203100000000177,
+        "samples": 30
+      },
+      "urnSubmitMs": {
+        "median": 10.856750000000147,
+        "p95": 12.530900000000202,
+        "samples": 30
+      },
+      "auditMs": {
+        "median": 13.460000000000036,
+        "p95": 16.9371000000001,
+        "samples": 30
+      }
+    },
+    {
+      "n": 5,
+      "ballotBinaryBytes": 320,
+      "ballotJsonBytes": 928,
+      "storedBallotJsonBytes": 983,
+      "recordJsonBytes": 6322,
+      "creationMs": {
+        "median": 12.26344999999992,
+        "p95": 13.811999999999898,
+        "samples": 150
+      },
+      "cryptoVerifyMs": {
+        "median": 10.061449999999695,
+        "p95": 11.279000000000451,
+        "samples": 150
+      },
+      "urnSubmitMs": {
+        "median": 10.451600000000326,
+        "p95": 11.780500000000757,
+        "samples": 150
+      },
+      "auditMs": {
+        "median": 55.2166500000003,
+        "p95": 60.61800000000039,
+        "samples": 30
+      }
+    },
+    {
+      "n": 10,
+      "ballotBinaryBytes": 320,
+      "ballotJsonBytes": 928,
+      "storedBallotJsonBytes": 983,
+      "recordJsonBytes": 11593,
+      "creationMs": {
+        "median": 12.075399999999718,
+        "p95": 13.310599999997066,
+        "samples": 300
+      },
+      "cryptoVerifyMs": {
+        "median": 9.906100000000151,
+        "p95": 10.863999999999578,
+        "samples": 300
+      },
+      "urnSubmitMs": {
+        "median": 10.284649999999601,
+        "p95": 11.305200000002515,
+        "samples": 300
+      },
+      "auditMs": {
+        "median": 106.02400000000034,
+        "p95": 109.9919000000009,
+        "samples": 30
+      }
+    },
+    {
+      "n": 20,
+      "ballotBinaryBytes": 320,
+      "ballotJsonBytes": 928,
+      "storedBallotJsonBytes": 983,
+      "recordJsonBytes": 22135,
+      "creationMs": {
+        "median": 12.031850000001214,
+        "p95": 13.665600000000268,
+        "samples": 600
+      },
+      "cryptoVerifyMs": {
+        "median": 9.953600000000733,
+        "p95": 11.360599999999977,
+        "samples": 600
+      },
+      "urnSubmitMs": {
+        "median": 10.25590000000193,
+        "p95": 12.630599999996775,
+        "samples": 600
+      },
+      "auditMs": {
+        "median": 210.3158999999996,
+        "p95": 228.98359999999957,
+        "samples": 30
+      }
+    }
+  ]
+}

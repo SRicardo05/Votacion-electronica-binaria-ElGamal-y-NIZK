@@ -300,6 +300,7 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
   - tiempo de verificación por voto en la urna (U1–U3);
   - tiempo total de auditoría del verificador sobre el expediente de N votos.
 - Salida en `results/metrics.csv` y en tabla markdown lista para el informe.
+- *Implementado:* `npm run bench` (`bench/metrics.ts`). Cada tamaño corre 30 elecciones independientes en SQLite en memoria, con una ronda de calentamiento descartada. Además de las cuatro columnas pedidas se reporta la verificación criptográfica aislada (U1 + U3) y el tamaño del expediente. Resultados en `results/metrics.{md,csv,json}`. Lectura (i5-10300H, Node 24): creación ≈ 12 ms y verificación ≈ 10 ms por voto, constantes en N; la verificación criptográfica es ≈ 95 % del tiempo de la urna; la auditoría crece linealmente (≈ 10,5 ms por ballot, ≈ 210 ms para 20). El costo lo dominan las 8 multiplicaciones escalares de la prueba OR en JavaScript puro (`@noble/curves`).
 
 ### Fase 9: Documentación para la Entrega 2
 - Reescribir la §4.3 del informe con §2 de este plan (ecuaciones + transcript).

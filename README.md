@@ -23,7 +23,11 @@ npm run demo         # elección completa de 20 votantes (13 sí / 7 no) + ataqu
 npm start            # urna + administración en http://127.0.0.1:3000
 npm run vote -- --server <url> --election <id> --credential <token_id.mac> --choice si|no [--params-sha256 <huella>]
 npm run verify -- expediente.json [--ballot-hash <recibo>] [--json]   # verificador independiente
+npm run bench -- [--repeats 30] [--sizes 1,5,10,20]   # métricas → results/metrics.{md,csv,json}
 ```
+
+Las métricas de la tabla del §8.3 del Entregable 1 (tamaño de ballot, creación, verificación por voto y auditoría
+para 1, 5, 10 y 20 votos) están en [`results/metrics.md`](results/metrics.md).
 
 `npm run demo` acepta `--voters N --yes K --out <archivo> --db <archivo.db>` y deja el expediente en
 `data/demo/expediente.json`. El cliente de votación cifra el voto y genera la prueba OR localmente; con
@@ -99,7 +103,8 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 - [x] Fase 5 — Urna (pasos U0–U5), elecciones y API Express
 - [x] Fase 6 — Cierre con escrutinio del agregado, expediente firmado (Ed25519) y verificador independiente
 - [x] Fase 7 — CLI de votación (con fijación de huella de parámetros) y demo de extremo a extremo
-- [ ] Fases 8–9 — métricas, informe
+- [x] Fase 8 — Métricas para 1, 5, 10 y 20 votos (`npm run bench`, 30 elecciones por tamaño, mediana y p95)
+- [ ] Fase 9 — informe de la Entrega 2
 
 ## Limitaciones declaradas
 

@@ -1,0 +1,5 @@
+n,ballot_binary_bytes,ballot_json_bytes,stored_ballot_json_bytes,record_json_bytes,creation_ms_median,creation_ms_p95,crypto_verify_ms_median,crypto_verify_ms_p95,urn_submit_ms_median,urn_submit_ms_p95,audit_ms_median,audit_ms_p95,repeats
+1,320,928,983,2106,12.610,14.883,10.271,12.203,10.857,12.531,13.460,16.937,30
+5,320,928,983,6322,12.263,13.812,10.061,11.279,10.452,11.781,55.217,60.618,30
+10,320,928,983,11593,12.075,13.311,9.906,10.864,10.285,11.305,106.024,109.992,30
+20,320,928,983,22135,12.032,13.666,9.954,11.361,10.256,12.631,210.316,228.984,30

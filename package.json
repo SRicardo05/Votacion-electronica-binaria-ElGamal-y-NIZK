@@ -18,7 +18,8 @@
     "start": "tsx src/api/server.ts",
     "verify": "tsx src/verifier/cli.ts",
     "vote": "tsx src/client/voterCli.ts",
-    "demo": "tsx scripts/demo.ts"
+    "demo": "tsx scripts/demo.ts",
+    "bench": "tsx bench/metrics.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",
