@@ -264,6 +264,7 @@ Ordenadas según lo que pide la evaluación: **primero el núcleo criptográfico
 ### Fase 5: Urna (`ballotBox.ts`) y API Express
 - Pipeline U0–U5 en la capa de protocolo; las rutas solo validan el esquema y delegan.
 - Pruebas con `supertest`: todos los códigos de §4, replay exacto → `E_TOKEN_USED` (U2 llega antes que U4; se documenta), ciphertext duplicado con token nuevo → V3 por el atado al token (y U4 como segunda barrera).
+- *Implementado:* U4 `E_DUP_CIPHERTEXT` solo se alcanza si quien conoce `r` re-prueba el mismo `(α, β)` con otro token (p. ej. la autoridad con tokens sobrantes); `E_REPLAY` queda como restricción `UNIQUE` en la base, porque el hash incluye `token_id` y un reenvío choca antes en U2. Un ballot rechazado en U0–U4 nunca consume el token; en U5 el consumo se deshace si falla la inserción. Los secretos de la autoridad se guardan en claro en SQLite (limitación declarada en el README).
 
 ### Fase 6: Cierre, expediente y verificador
 - `tally.ts`, `record.ts` (JCS + firma), `verifier/`.

@@ -1,8 +1,9 @@
 /**
  * Envoltura del grupo de orden primo Ristretto255 (RFC 9496) provisto por @noble/curves.
  *
- * Es el ÚNICO módulo que importa la biblioteca de curva: si se cambiara la biblioteca,
- * solo este archivo cambia. El resto del proyecto usa `Point`, `Scalar` y estas funciones.
+ * Es el ÚNICO módulo que usa Ristretto255 de la biblioteca de curva (sign.ts usa Ed25519, que es
+ * otra primitiva): si se cambiara la biblioteca, solo este archivo cambia para el grupo.
+ * El resto del proyecto usa `Point`, `Scalar` y estas funciones.
  *
  * Notación: el grupo es aditivo. g^r del informe ↔ `mulSecret(r, G)`; g^v·h^r ↔ v·G + r·H.
  */

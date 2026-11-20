@@ -19,7 +19,25 @@ npm run check        # typecheck + lint + pruebas
 npm test             # solo pruebas (Jest)
 npm run test:coverage
 npm run build        # compila a dist/
+npm start            # urna + administración en http://127.0.0.1:3000
 ```
+
+Variables de `npm start`: `PORT` (3000), `HOST` (127.0.0.1), `DB_PATH` (`data/urna.db`) y `ADMIN_API_KEY`
+(≥ 16 caracteres; si falta se genera una y se muestra al arrancar).
+
+### API HTTP
+
+| Método | Ruta | Acceso | Respuesta |
+|---|---|---|---|
+| POST | `/admin/elections` `{question, n_max_voters}` | admin | parámetros públicos |
+| POST | `/admin/elections/:id/tokens` `{count}` | admin | credenciales `<token_id>.<mac>` |
+| GET | `/elections/:id/params` | público | parámetros públicos |
+| GET | `/elections/:id/status` | público | conteos (sin ballots individuales) |
+| POST | `/elections/:id/ballots` | público (con credencial) | `201 {accepted, ballot_hash, …}` o `{accepted: false, step, code}` |
+
+Las rutas `admin` exigen `Authorization: Bearer <ADMIN_API_KEY>`. Estados HTTP de rechazo: 400 (U0 formato/versión),
+403 (token inválido), 404 (elección inexistente), 409 (token usado, duplicado, elección cerrada), 422 (U1 codificación,
+U3 prueba).
 
 ## Suite criptográfica (fija)
 
@@ -61,7 +79,8 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 - [x] Fase 2 — ElGamal exponencial (cifrado de votos, agregación homomórfica, descifrado acotado)
 - [x] Fase 3 — Prueba OR CDS + Fiat–Shamir, con vectores deterministas (`npm run vectors`) y casos negativos por paso V1–V5
 - [x] Fase 4 — Tokens HMAC de un solo uso y persistencia SQLite (consumo atómico, triggers, migraciones)
-- [ ] Fases 5–9 — urna, API, expediente, verificador, CLI, métricas, informe
+- [x] Fase 5 — Urna (pasos U0–U5), elecciones y API Express
+- [ ] Fases 6–9 — cierre y expediente, verificador, CLI, métricas, informe
 
 ## Limitaciones declaradas
 
@@ -69,6 +88,9 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 - **Elegibilidad no verificable públicamente:** la autoridad emite los tokens y conoce la clave HMAC, así que podría
   votar con tokens sobrantes (votos de relleno) sin que el verificador lo detecte. Cada votante sí puede comprobar que su
   propio ballot aparece en el expediente.
+- **Secretos de la autoridad en claro en la base local:** la clave ElGamal `x`, la clave HMAC y la clave de firma se
+  guardan sin cifrar en SQLite (tabla separada de los parámetros públicos). Quien lea `data/urna.db` puede descifrar
+  votos individuales. Es coherente con el supuesto de autoridad única y confiable, pero no apto para producción.
 - Autoridad única (sin umbral), sin anonimato de red ni resistencia a coerción.
 
 Ver §3 y §5.3 del plan.

@@ -1,6 +1,6 @@
-import { sha512 } from '@noble/hashes/sha2.js';
+import { sha256, sha512 } from '@noble/hashes/sha2.js';
 
-import { bytesToBigIntLE } from './encoding.js';
+import { bytesToBigIntLE, bytesToHex } from './encoding.js';
 import { type Scalar, toScalar } from './group.js';
 
 /**
@@ -10,4 +10,9 @@ import { type Scalar, toScalar } from './group.js';
  */
 export function hashToScalar(bytes: Uint8Array): Scalar {
   return toScalar(bytesToBigIntLE(sha512(bytes)));
+}
+
+/** SHA-256 en hex (hash de ballots y del expediente). */
+export function sha256Hex(bytes: Uint8Array): string {
+  return bytesToHex(sha256(bytes));
 }
