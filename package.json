@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js",
     "test:coverage": "npm test -- --coverage",
-    "check": "npm run typecheck && npm run lint && npm test"
+    "check": "npm run typecheck && npm run lint && npm test",
+    "vectors": "tsx scripts/generate-or-proof-vectors.ts"
   },
   "dependencies": {
     "@noble/curves": "2.4.0",

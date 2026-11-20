@@ -64,7 +64,7 @@ Ristretto es aditivo. Correspondencia con el PDF: `g^r ↔ r·G`, `g^v·h^r ↔ 
 3. **Reto global:** `c = SHA-512(T) mod q`, con `T` el transcript de §2.4.
 4. **Reto de la rama real:** `c_v = c − c_f mod q`.
 5. **Respuesta real:** `s_v = w + c_v·r mod q`.
-6. Borrar `w` y `r` de memoria (sobrescribir los buffers).
+6. Descartar `w` y `r` (no se devuelven ni se persisten). *Limitación declarada:* en JavaScript los `bigint` son inmutables y los gestiona el recolector de basura, así que no se puede garantizar su borrado de memoria; los ataques sobre la memoria del cliente están fuera del modelo de adversario (§2.4 del Entregable 1).
 
 **Prueba publicada:** `π = (A0, B0, A1, B1, c0, c1, s0, s1)`: 4 puntos y 4 escalares = **256 bytes**.
 **Ballot criptográfico:** `(α, β, π)` = **320 bytes** en binario (≈ 640 caracteres hex en JSON).

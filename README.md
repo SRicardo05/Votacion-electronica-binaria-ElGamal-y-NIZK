@@ -59,7 +59,7 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 
 - [x] Fase 1 — Esqueleto, suite fija, grupo Ristretto255 y reglas de rechazo de elementos (§0.1 del plan)
 - [x] Fase 2 — ElGamal exponencial (cifrado de votos, agregación homomórfica, descifrado acotado)
-- [ ] Fase 3 — Prueba OR CDS + Fiat–Shamir
+- [x] Fase 3 — Prueba OR CDS + Fiat–Shamir, con vectores deterministas (`npm run vectors`) y casos negativos por paso V1–V5
 - [ ] Fases 4–9 — tokens, urna, API, expediente, verificador, CLI, métricas, informe
 
 ## Limitaciones declaradas
