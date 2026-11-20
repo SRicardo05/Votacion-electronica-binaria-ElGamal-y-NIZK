@@ -1,0 +1,16 @@
+10_Votacion_Jimenez_Ricardo_Evaluacion.md
+Criptografia_PF_Entrega1.pdf
+
+# Node / TypeScript
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Datos locales (BD SQLite, expedientes generados en desarrollo)
+data/
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+.env

@@ -1,0 +1,33 @@
+{
+  "name": "voto-binario-elgamal-nizk",
+  "version": "0.1.0",
+  "description": "Prototipo de votación electrónica binaria con ElGamal exponencial sobre Ristretto255 y pruebas OR no interactivas (CDS + Fiat–Shamir).",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "node --experimental-vm-modules --no-warnings=ExperimentalWarning node_modules/jest/bin/jest.js",
+    "test:coverage": "npm test -- --coverage",
+    "check": "npm run typecheck && npm run lint && npm test"
+  },
+  "dependencies": {
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.5",
+    "@types/jest": "30.0.0",
+    "@types/node": "24.19.2",
+    "eslint": "9.39.5",
+    "jest": "30.5.2",
+    "ts-jest": "29.4.15",
+    "tsx": "4.23.15",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.73.0"
+  }
+}
