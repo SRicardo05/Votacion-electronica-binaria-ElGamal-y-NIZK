@@ -58,7 +58,7 @@ Dentro de `crypto/`, solo `group.ts` importa la biblioteca de curva; el resto de
 ## Estado
 
 - [x] Fase 1 — Esqueleto, suite fija, grupo Ristretto255 y reglas de rechazo de elementos (§0.1 del plan)
-- [ ] Fase 2 — ElGamal exponencial
+- [x] Fase 2 — ElGamal exponencial (cifrado de votos, agregación homomórfica, descifrado acotado)
 - [ ] Fase 3 — Prueba OR CDS + Fiat–Shamir
 - [ ] Fases 4–9 — tokens, urna, API, expediente, verificador, CLI, métricas, informe
 

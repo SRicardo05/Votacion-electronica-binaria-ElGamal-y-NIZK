@@ -3,3 +3,4 @@ export * from './errors.js';
 export * from './encoding.js';
 export * from './group.js';
 export * from './random.js';
+export * from './elgamal.js';
